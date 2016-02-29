@@ -4,3 +4,18 @@ bower_components/
 
 build/
 dist/
+
+.kansorc
+*~
+*.lock
+*.DS_Store
+.*.swp
+
+
+cache
+node_modules
+
+!.gitignore
+
+
+.npmrc
