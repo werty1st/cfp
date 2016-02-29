@@ -1,21 +1,19 @@
-node_modules/
-bower_components/
-*.log
-
-build/
-dist/
-
 .kansorc
+config.php
 *~
 *.lock
 *.DS_Store
 .*.swp
-
-
+*.out
+emailadressen
 cache
 node_modules
 
 !.gitignore
 
+.bottoken.json
+.bottoken.js
+.config.json
+.config.js
 
 .npmrc
