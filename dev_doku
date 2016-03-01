@@ -1,0 +1,149 @@
+
+
+Download der XML Dateien
+Hash der Items
+wenn neu dann
+    prüfe auf änderung
+    wenn ja dann 
+        update
+    sonst
+        neu
+    modified!
+sonst
+    alte items behalten
+    veraltete items updaten auf deleted
+    
+    
+        
+
+
+https://api.zdf.de/newsflash/feed
+
+// GET https://api.zdf.de/newsflash/feed
+{
+    "self": "/newsflash/feed",   
+    "profile": "http://zdf.de/rels/feed-provider"
+    "description": "Der newsflash Service Feed",
+    "interval": "1m",
+    "allowsComplete": true,
+    "current": "https://api.zdf.de/newsflash/feed/current",
+    "ttl": "1m"
+}
+
+
+// Das System KANN die Angabe eines "since" Parameters als GET URI-Parameter im Format eines Zeitstempels
+// (wie oben "2015-06-12T00:00:00") unterstützen und MUSS DANN die Menge der gelieferten Items auf den 
+// geforderten Zeitraum beschränken.
+// Auch HEAD Requests MÜSSEN unterstützt werden. Bei Abruf der "current" Collection erfährt der Konsument
+// über den "lastModified" Header den Zeitpunkt der letzten Aktualisierung und kann so entscheiden,
+// ob ein echter Abruf erforderlich ist.
+
+// GET https://api.zdf.de/newsflash/feed/current
+{
+    "profile": "http://zdf.de/rels/feed"
+    "startDate" : "2015-06-12T00:00:00",
+    "endDate"   : "2015-06-12T00:00:59",
+    "self": "/newsflash/feed/current",
+    "prev-archive" : "/newsflash/feed/[id]",
+    "http://zdf.de/rels/feed-items": [
+        {
+            "profile": "http://zdf.de/rels/feed-item",
+            "id" : "129038209",
+            "timestamp" : "2015-06-12T00:00:13",
+            "typeOfChange" : "modified",
+            "url" : "/newsflash/broadcasts/129038209"
+        },
+        /* ... */
+    }
+}
+
+
+// GET https://api.zdf.de/newsflash/feed/[id]
+{ 
+    "profile": "http://zdf.de/rels/feed"
+    "startDate": "2015-06-11T23:59:00",
+    "endDate"  : "2015-06-11T23:59:59",
+    "self": "/newsflash/feed/[id]", /* Die aktuelle Seite des Feeds */
+    "next-archive": "/newsflash/feed/[id2]",    /* Die nächste Seite des Feeds */
+    "prev-archive": "/newsflash/feed/current",  /* Die vorherige Seite des Feeds */
+    "http://zdf.de/rels/feed-items": [
+        {
+            "profile": "http://zdf.de/rels/feed-item",
+            "id": "129038209",
+            "timestamp": "2015-06-11T23:59:33",
+            "typeOfChange": "modified",
+            "url": "/newsflash/broadcasts/129038209"
+        },
+        /* ... */
+    ]
+}
+
+// Abruf der vollständige Objektmenge
+// GET https://api.zdf.de/newsflash/feed/current?complete=1
+{
+    "profile": "http://zdf.de/rels/full-feed"
+    "startDate" : "2012-03-11T00:00:00",
+    "self": "https://api.zdf.de/newsflash/feed/current?complete=1",
+    "http://zdf.de/rels/feed-items" : [
+        {
+            "profile": "http://zdf.de/rels/feed-item",
+            "id" : "modul1",
+            "timestamp" : "2015-06-12T00:00:13",
+            "http://zdf.de/rels/search-index-document": {
+                "profile": "http://zdf.de/rels/search-index-document",
+                "title" : "pur+ Schafe",
+                "title2" : "pur+",
+                "title3" : "Schafe",
+                /* ... */
+            }
+        },
+        /* ... */
+    ]
+}
+
+
+// Im JSON wird ein Datum/Zeitpunkt immer nach ISO 8601 formatiert.
+// 2015-05-23T22:00:00+02:00
+// "yyyy-MM-dd'T'HH:mm:ssXXX"
+
+######################################################
+
+
+Meldungen der letzten 24 Stunden aus der Rubrik "Nachrichten"; es werden Unterrubriken zurückgeliefert: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/
+
+Meldungen der letzten 24 Stunden aus der Rubrik "Nachrichten"; es werden Unterrubriken zurückgeliefert: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/20
+
+Anhand der Unterrubriken können die Meldungen der letzten 24 Stunden wie folgt für "Politik" aufgerufen werden: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Nachrichten/Politik/
+
+Anhand der Unterrubriken können die Meldungen der letzten 24 Stunden wie folgt für "Politik" aufgerufen werden, Begrenzung auf 2 Elemente: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Nachrichten/Politik/
+
+Einzelne Meldung anzeigen: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsflash/700320
+
+Unterkategorien der Rubrik "Nachrichten": 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/subTypes/Nachrichten
+ 
+Meldungen der letzten 24 Stunden aus der Rubrik "Sport"; es werden Rubriken zurückgeliefert: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport
+
+Die letzten 20 Meldungen aus der Rubrik "Sport"; es werden keine Rubriken zurückgeliefert:
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/20
+
+Meldungen der letzten 24 Stunden aus der Unterkategorie "Tennis" innerhalb der Kategorie "Sport":
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Sport/Tennis
+
+Die letzten 5 Meldungen aus der Unterkategorie "Tennis" innerhalb der Kategorie "Sport": 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Sport/Tennis/5
+
+Genau ein Meldung mit gegebener ID: 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsflash/388
+
+Unterkategorien der Rubrik "Sport": 
+http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/subTypes/Sport
+
+
+Doku: https://jira.zdf.de/jira/browse/KZN-334
