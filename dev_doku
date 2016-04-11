@@ -1,3 +1,40 @@
+DB: [] 
+Memory: []
+Source: [A, B, C]
+
+start:
+    sync items von db
+    
+
+DB: [] 
+Memory: []
+Source: [A, B, C]
+    Memory: [A, B, C]
+        DB: [A, B, C]
+
+/////////////////////
+
+DB: [A, B, C] 
+Memory: []
+Source: [B, C, D]
+    DB->Memory: [A, B, C]
+    Source->Memory: [A, B, C, D]
+    Memory: [A(deleted), B, C, D]
+    DB: [A(deleted), B, C, D]
+    
+
+
+
+start:
+    sync items von db
+    
+
+DB: [A, B, C] 
+Memory: [A, B, C]
+Server: [B, C, D]
+
+
+
 
 
 Download der XML Dateien

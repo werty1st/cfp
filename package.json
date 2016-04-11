@@ -1,29 +1,32 @@
 {
-  "name": "mtr3picker",
+  "name": "mtrCFP",
   "version": "1.0.0",
   "description": "",
-  "main": "./app/main.js",
+  "main": "./server/server.js",
   "config": {
-      "server": 3010,
-      "client": 3020
+    "server": 3010,
+    "client": 3020,
+    "database": "newsflash",
+    "logLevel": "debug",
+    "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
-    "debug:server": "PORTS=${npm_package_config_server} node ./server/server.js",
-    "debug:client": "PORTC=${npm_package_config_client} node ./3rd_party_data/server.js",
-    "debug": "npm run debug:server & npm run debug:client",
-    
-    "debug:server:watch": "PORTS=${npm_package_config_server} nodemon ./server/server.js",
-    "debug:client:watch": "PORTC=${npm_package_config_client} nodemon ./3rd_party_data/server.js",
-    "watch": "PORTS=${npm_package_config_server} nodemon ./server/server.js & PORTC=${npm_package_config_client} nodemon ./3rd_party_data/server.js"
+    "debug": "PORTS=${npm_package_config_server} node ./server/server.js",
+    "debug:watch": "PORTS=${npm_package_config_server} nodemon --watch server ./server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "couchapp": "^0.11.0",
+    "eslint": "^2.7.0",
     "express": "^4.13.4",
     "moment": "^2.11.0",
+    "pouchdb": "^5.3.1",
     "request": "^2.67.0",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "winston": "^2.2.0",
+    "winston-daily-rotate-file": "^1.0.1",
+    "xpath-stream": "0.0.8"
   },
   "devDependencies": {
     "async": "^1.5.2",
