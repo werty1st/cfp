@@ -1,3 +1,4 @@
+"use strict";
 var XmlNewsReader = require('./XmlNewsReader');
 
 var express = require('express');
@@ -18,7 +19,7 @@ global.log = new (winston.Logger)({
 
 log.info("Start");
 
-const db = new PouchDB(process.env.npm_package_config_database);
+var db = new PouchDB(process.env.npm_package_config_database);
 const PORT = process.env.PORTS;
 
 app.use(express.static(__dirname + '/html'));
@@ -44,5 +45,7 @@ const xmlReader = new XmlNewsReader(db);
 log.debug("xmlReader loaded");
 
 
-
-
+console.log(db);
+db.info().then(function (info) {
+  log.debug("db:", info);
+});

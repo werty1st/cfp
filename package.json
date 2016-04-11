@@ -6,7 +6,7 @@
   "config": {
     "server": 3010,
     "client": 3020,
-    "database": "newsflash",
+    "database": "./newsflash",
     "logLevel": "debug",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },

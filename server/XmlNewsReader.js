@@ -18,6 +18,11 @@ class XmlNewsReader {
      * add XML News Item to DB
      */
     addItem(item){
+        //send to db
+        //console.log("save item");
+        this.db.put(item).then((x)=>{
+            console.log("xx",x);
+        });
         
     }
 
