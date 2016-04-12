@@ -1,11 +1,14 @@
-"use strict";
+(function () {
+"use strict";  
+
+
 var XmlNewsReader = require('./XmlNewsReader');
+var DbWorker      = require('./DbWorker');
 
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var PouchDB = require('pouchdb');
 var winston = require('winston');
 
 global.log = new (winston.Logger)({
@@ -19,7 +22,6 @@ global.log = new (winston.Logger)({
 
 log.info("Start");
 
-var db = new PouchDB(process.env.npm_package_config_database);
 const PORT = process.env.PORTS;
 
 app.use(express.static(__dirname + '/html'));
@@ -33,19 +35,14 @@ http.listen(PORT, function(){
 });
 
 
-db.info().then(function (info) {
-  log.debug("db:", info);
-});
+
 
 // syncCouchdb
 //todo
 
 // getXMLData
-const xmlReader = new XmlNewsReader(db);
+const xmlReader = new XmlNewsReader(DbWorker);
 log.debug("xmlReader loaded");
 
 
-console.log(db);
-db.info().then(function (info) {
-  log.debug("db:", info);
-});
+}());

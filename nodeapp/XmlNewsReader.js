@@ -1,4 +1,6 @@
+(function () {
 "use strict";
+
 
 var xpathStream = require('xpath-stream');
 var http  = require("http");
@@ -13,19 +15,6 @@ class XmlNewsReader {
         this.load();
     }
     
-    
-    /**
-     * add XML News Item to DB
-     */
-    addItem(item){
-        //send to db
-        //console.log("save item");
-        this.db.put(item).then((x)=>{
-            console.log("xx",x);
-        });
-        
-    }
-
 
     //xml stream parser
     /**
@@ -38,6 +27,7 @@ class XmlNewsReader {
         stream
             .pipe(xpathStream("/newscenter/newsflash",{
                 externalId: "id/text()",
+                _id: "id/text()",
                 subType: "subType/text()",
                 title: "title/text()",
                 text: "text/text()",
@@ -48,7 +38,7 @@ class XmlNewsReader {
                 log.debug("xmlReader:", result.length,"items");
                 for(let item in result){
                     let newsitem = result[item];
-                    this.addItem(newsitem);               
+                    this.db.addItem(newsitem);               
                 }           
             });
     }
@@ -91,3 +81,4 @@ class XmlNewsReader {
 
 
 module.exports = XmlNewsReader;
+}());

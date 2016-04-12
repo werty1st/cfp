@@ -5,23 +5,28 @@
   "main": "./server/server.js",
   "config": {
     "server": 3010,
-    "client": 3020,
-    "database": "./newsflash",
+    "database_off": "./newsflash",
+    "database": "http://localhost:5984/newsflash",
     "logLevel": "debug",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
-    "debug": "PORTS=${npm_package_config_server} node ./server/server.js",
-    "debug:watch": "PORTS=${npm_package_config_server} nodemon --watch server ./server/server.js"
+    "debug": "PORTS=${npm_package_config_server} node ./nodeapp/server.js",
+    "debug:watch": "PORTS=${npm_package_config_server} nodemon --watch server ./nodeapp/server.js",
+    "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
+    "push:watch": "watch 'npm run push' sofaapp",
+    "watch": "npm run push:watch & npm run debug:watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "couchapp": "^0.11.0",
+    "deep-diff": "^0.3.3",
     "eslint": "^2.7.0",
     "express": "^4.13.4",
     "moment": "^2.11.0",
     "pouchdb": "^5.3.1",
+    "pouchdb-upsert": "^2.0.0",
     "request": "^2.67.0",
     "socket.io": "^1.4.5",
     "winston": "^2.2.0",
