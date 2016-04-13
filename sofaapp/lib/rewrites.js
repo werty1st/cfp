@@ -1,9 +1,16 @@
 module.exports = [
-    {from:"/", to:'index.html'},
     {from:"/api", to:'../../'},
     {from:"/api/*", to:'../../*'},
     
-    {from:"/now", to:'_list/list_getNow/view_getAllByDate'},
+    
+    
+    {from:"/feed", to:'_show/feed/settings'},
+    
+    
+    
+    
+    
+    
     {from:"/today", to:'_list/list_getToday/view_getAllByDate'},
 
     {from:"/now/:station", to:'_list/list_getNow/by_SubType',     query: { "station": ':station', "days": "0" }},

@@ -5,17 +5,16 @@
   "main": "./server/server.js",
   "config": {
     "server": 3010,
-    "database_off": "./newsflash",
-    "database": "http://localhost:5984/newsflash",
     "logLevel": "debug",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
-    "debug": "PORTS=${npm_package_config_server} node ./nodeapp/server.js",
-    "debug:watch": "PORTS=${npm_package_config_server} nodemon --watch server ./nodeapp/server.js",
+    "debug": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} node ./nodeapp/server.js",
+    "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} nodemon --watch server ./nodeapp/server.js",
     "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
-    "push:watch": "watch 'npm run push' sofaapp",
-    "watch": "npm run push:watch & npm run debug:watch"
+    "push:watch": "watch 'npm run push' sofaapp/",
+    "watch": "npm run push:watch & npm run debug:watch",
+    "build:s2": "cd sofaapp; kanso push ${npm_config_couchdb2}; cd ..;PORTS=-1 DB=${npm_config_couchdb2} node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",

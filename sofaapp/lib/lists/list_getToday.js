@@ -1,5 +1,4 @@
-
-exports.list_getToday = function (head, req) {
+module.exports.list_getToday = function (head, req) {
     
     var moment = require("lib/moment");
         

@@ -24,15 +24,17 @@ log.info("Start");
 
 const PORT = process.env.PORTS;
 
-app.use(express.static(__dirname + '/html'));
+if (PORT > 0){
+    app.use(express.static(__dirname + '/html'));
 
-io.on('connection', function(socket){
-  log.info('client is talking to me');
-});
+    io.on('connection', function(socket){
+    log.info('client is talking to me');
+    });
 
-http.listen(PORT, function(){
-  log.debug(`server is listening on *:${PORT}`);
-});
+    http.listen(PORT, function(){
+    log.debug(`server is listening on *:${PORT}`);
+    });    
+}
 
 
 

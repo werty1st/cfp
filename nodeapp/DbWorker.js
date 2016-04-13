@@ -11,7 +11,7 @@ var diff = require('deep-diff').diff;
 class DbWorker {
     
     constructor (){
-        this.db = new PouchDB(process.env.npm_package_config_database, {auto_compaction: true});
+        this.db = new PouchDB(process.env.DB, {auto_compaction: true});
         this.db.info().then(function (info) {
             //log.debug("db:", info);
         });
