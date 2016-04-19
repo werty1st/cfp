@@ -4,13 +4,16 @@
   "description": "",
   "main": "./server/server.js",
   "config": {
+    "version": {
+      "items": 3
+    },
     "server": 3010,
     "logLevel": "debug",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
     "debug": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} node ./nodeapp/server.js",
-    "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} nodemon --watch server ./nodeapp/server.js",
+    "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} nodemon --watch nodeapp/ ./nodeapp/server.js",
     "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
     "push:watch": "watch 'npm run push' sofaapp/",
     "watch": "npm run push:watch & npm run debug:watch",

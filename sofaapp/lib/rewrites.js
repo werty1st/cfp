@@ -4,7 +4,9 @@ module.exports = [
     
     
     
-    {from:"/feed", to:'_show/feed/settings'},
+    {from:"/feed", to:'_show/current/settings'},
+    
+    {from:"/feed/current", to:'_list/feed/viewByDate'/*, query: { "descending": "true" }*/},
     
     
     

@@ -5,7 +5,14 @@
 var xpathStream = require('xpath-stream');
 var http  = require("http");
 
-var url = 'http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/';
+var urls = [{
+                url: 'http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/10',
+                category: 'news'
+            },
+            {
+                url: 'http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/10',
+                category: 'sport'
+            }];
 
 
 class XmlNewsReader {
@@ -21,35 +28,39 @@ class XmlNewsReader {
      * @param {stream} stream from http get.
      * passes sendungen to addSendetermin
      */
-    parseXmlStream(stream){
+    parseXmlStream(stream, category){
 
         // get Sendungen
         stream
             .pipe(xpathStream("/newscenter/newsflash",{
                 externalId: "id/text()",
                 _id: "id/text()",
-                subType: "subType/text()",
+                topic: "subType/text()",
                 title: "title/text()",
                 text: "text/text()",
-                dateTime: "dateTime/text()"
+                dateTime: "dateTime/text()",
+                asset:{
+                    type: "asset/type/text()",
+                    reference  : "asset/reference/text()"
+                }
             }))
             .on('data',(result)=>{
 
-                log.debug("xmlReader:", result.length,"items");
+                log.info("xmlReader:", result.length,"items");
+                log.info("category:", category);
                 for(let item in result){
                     let newsitem = result[item];
+                    newsitem.category = category;
                     this.db.addItem(newsitem);               
-                }           
+                }
+                this.db.markOutdated();           
             });
     }
     
-    /**
-     * Load Data from XML Endpoint
-     */
-    load(){
-        log.info("Download:",url);
+    
+    _downloadURL(url){
 
-        var get_options = require('url').parse(url);
+        var get_options = require('url').parse(url.url);
         get_options.headers = {
                 'User-Agent': process.env.npm_package_config_useragent,
                 'Cache-Control': 'no-cache'
@@ -67,11 +78,24 @@ class XmlNewsReader {
                     return;
                 }
                 //send to xml stream reader                   
-                this.parseXmlStream(responeStream);
+                this.parseXmlStream(responeStream, url.category);
             }
         }).on('error', (e) => {
-            log.error(`Error in response: from ${url}`);
-        });        
+            log.error(`Error in response: from ${url.url}`);
+        });          
+    }
+    
+    /**
+     * Load Data from XML Endpoint
+     */
+    load() {
+        
+        urls.forEach( url => {
+            log.debug("Download:", url);
+            this._downloadURL(url);    
+        });
+       
+      
     }
     
 }

@@ -28,11 +28,11 @@ if (PORT > 0){
     app.use(express.static(__dirname + '/html'));
 
     io.on('connection', function(socket){
-    log.info('client is talking to me');
+      log.debug('client is talking to me');
     });
 
     http.listen(PORT, function(){
-    log.debug(`server is listening on *:${PORT}`);
+      log.info(`server is listening on *:${PORT}`);
     });    
 }
 
@@ -44,7 +44,7 @@ if (PORT > 0){
 
 // getXMLData
 const xmlReader = new XmlNewsReader(DbWorker);
-log.debug("xmlReader loaded");
+log.info("xmlReader loaded");
 
 
 }());

@@ -1,2 +1,2 @@
 
-module.exports.feed = require('./feed');
+module.exports.current = require('./current');
