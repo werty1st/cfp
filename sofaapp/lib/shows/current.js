@@ -8,9 +8,7 @@ module.exports = function(doc, req) {
             self: "/newsflash/feed",   
             profile: "http://zdf.de/rels/feed-provider",
             description: "Der newsflash Service Feed",
-            completeFeed: true,
-            current: "https://" + hostname+ "/newsflash/feed/current",
-            invalidDowntime: "PT30M"
+            current: "https://" + hostname+ "/newsflash/feed/current"
         };        
     } else {
         doc.current = "https://" + hostname+ "/current";

@@ -5,12 +5,14 @@
 var xpathStream = require('xpath-stream');
 var http  = require("http");
 
+var download_items = process.env.npm_package_config_download_items;
+
 var urls = [{
-                url: 'http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/10',
+                url: `http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/${download_items}`,
                 category: 'news'
             },
             {
-                url: 'http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/10',
+                url: `http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/${download_items}`,
                 category: 'sport'
             }];
 
@@ -28,8 +30,10 @@ class XmlNewsReader {
      * @param {stream} stream from http get.
      * passes sendungen to addSendetermin
      */
-    parseXmlStream(stream, category){
+    parseXmlStream(stream, category, done){
 
+        let lastitem = false;
+        
         // get Sendungen
         stream
             .pipe(xpathStream("/newscenter/newsflash",{
@@ -50,15 +54,33 @@ class XmlNewsReader {
                 log.info("category:", category);
                 for(let item in result){
                     let newsitem = result[item];
+                    
+                    /**
+                     * Add category and version to docs
+                     */
                     newsitem.category = category;
+                    newsitem.version = process.env.npm_package_config_version_items;
+                    
                     this.db.addItem(newsitem);               
                 }
-                this.db.markOutdated();           
+                if (lastitem){
+                    done(category);                    
+                } else {
+                    lastitem = true;
+                }
+            })
+            .on("end",()=>{
+                if (lastitem){
+                    done(category);                    
+                } else {
+                    lastitem = true;    
+                }
+                
             });
     }
     
     
-    _downloadURL(url){
+    _downloadURL(url, done){
 
         var get_options = require('url').parse(url.url);
         get_options.headers = {
@@ -78,7 +100,7 @@ class XmlNewsReader {
                     return;
                 }
                 //send to xml stream reader                   
-                this.parseXmlStream(responeStream, url.category);
+                this.parseXmlStream(responeStream, url.category, done);
             }
         }).on('error', (e) => {
             log.error(`Error in response: from ${url.url}`);
@@ -90,11 +112,26 @@ class XmlNewsReader {
      */
     load() {
         
-        urls.forEach( url => {
-            log.debug("Download:", url);
-            this._downloadURL(url);    
-        });
+        // count open requests
+        let open = 0;
        
+        
+        urls.forEach( url => {
+            open += 1;
+            log.debug("Download:", url);
+            
+            this._downloadURL(url, (category) => {
+                
+                // call after category finished downloading
+                console.log(`done ${category}`);
+                open -= 1;
+                if (open === 0){
+                    // trigger removal of outdated docs
+                    this.db.markOutdated();                   
+                }                
+            });
+                
+        });
       
     }
     

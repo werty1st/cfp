@@ -34,7 +34,7 @@ class DbWorker {
         
         return function ( olddoc ){
             // diff doc                
-            let diffResult = diff(newdoc, olddoc); 
+            let diffResult = diff(olddoc, newdoc); 
 
             if ( (diffResult.length == 1) &&
                     (diffResult[0].path[0] === "_rev")) {
@@ -44,8 +44,11 @@ class DbWorker {
                 // something changed, return new item
                 
                 // set current document version without trigger update
-                newdoc.version = process.env.npm_package_config_version_items;
-                
+                //newdoc.version = process.env.npm_package_config_version_items;
+               
+                // console.log("XXXXXXXXXXXXXXXXXX");                
+                // console.log(diffResult);                
+                // console.log("zzzzzzzzzzzzzzzzzz");                
                 return newdoc;
             }        
         };
@@ -53,18 +56,23 @@ class DbWorker {
 
 
     /**
-     * find and remove outdated items
+     * remove outdated and wrong version items
      */
     markOutdated() {
     
-        let oldcount=0;
+        // count deleted items
+        let ver_count=0;
+        let old_count=0;
         
+        /**
+         * find docs with lower version 
+         */
         this.db.query('app/viewByVersion',{
                 endkey: process.env.npm_package_config_version_items,
-                inclusive_end: false
+                inclusive_end: "false"
             }).then( (res) => {
                 
-                oldcount = res.rows.length;
+                ver_count = res.rows.length;
 
                 //build array of docs to delete
                 return res.rows.map((x)=>{                                        
@@ -77,21 +85,64 @@ class DbWorker {
         })
         .then( (docs2delete) => {
             
+            // console.log("version: docs2delete",docs2delete);
+            // return;
+            
             // remove old versions elements
             this.db.bulkDocs(docs2delete)
-            .then((result)=>{
-                log.info(`Deleted ${oldcount} old versions.`);
-            })
-            .catch((err)=>{
-                log.error("Error removing docs with old version.");
-                throw new Error(err);    
-            });
+                .then((result)=>{
+                    log.info(`Deleted ${ver_count} old versions.`);
+                })
+                .catch((err)=>{
+                    log.error("Error removing docs with old version.");
+                    throw new Error(err);    
+                });
         })
         .catch( (err) => {
             console.log(err);
             // some error
         });         
-        
+
+
+
+        /** 
+         * remove outdated docs 
+         * */
+        this.db.query('app/viewByDate',{
+                descending: true, //newest first
+                skip: process.env.npm_package_config_age_keep //remove all after the first x items                
+            }).then( (res) => {
+                
+                old_count = res.rows.length;
+
+                //build array of docs to delete
+                return res.rows.map((x)=>{                                        
+                    return {
+                        _id: x.value._id,
+                        _rev: x.value._rev,
+                        _deleted: true
+                    };
+                });
+        })
+        .then( (docs2delete) => {
+             
+            // console.log("outdated: docs2delete",docs2delete);
+            // return;
+                         
+            // remove outdated elements
+            this.db.bulkDocs(docs2delete)
+                .then((result)=>{
+                    log.info(`Deleted ${old_count} old items.`);
+                })
+                .catch((err)=>{
+                    log.error("Error removing outdated docs.");
+                    throw new Error(err);    
+                });
+        })
+        .catch( (err) => {
+            console.log(err);
+            // some error
+        });         
 
         
         // remove items with lower version number
@@ -116,6 +167,9 @@ class DbWorker {
     addItem(item){
         //send to db
         log.debug("upsert item",item._id);
+
+                
+     
                 
         this.db.upsert(
             item._id,

@@ -13,11 +13,11 @@ module.exports.viewByTopic = {
     }
 };
 
-module.exports.viewByCategoryTopic = {
-    map: function(doc) {
-        emit([doc.category, doc.topic, doc.dateTime], doc);       
-    }
-};
+// module.exports.viewByCategoryTopic = {
+//     map: function(doc) {
+//         emit([doc.category, doc.topic, doc.dateTime], doc);       
+//     }
+// };
 
 
 module.exports.viewBySportTopic = {
@@ -30,7 +30,7 @@ module.exports.viewBySportTopic = {
 
 module.exports.viewByNewsTopic = {
     map: function(doc) {
-        if (doc.category == "sport")
+        if (doc.category == "news")
             emit([doc.topic, doc.dateTime], doc);       
     }
 };

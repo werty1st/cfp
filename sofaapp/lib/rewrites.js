@@ -5,8 +5,14 @@ module.exports = [
     
     
     {from:"/feed", to:'_show/current/settings'},
+    {from:"/feed/current", to:'_list/feed/viewByDate', query: { "descending": "true", "limit": "20" }},
     
-    {from:"/feed/current", to:'_list/feed/viewByDate'/*, query: { "descending": "true" }*/},
+    {from:"/:id", to:'_show/item/:id'},
+    
+    
+    /**outdated  
+    {from:"/feed/outdated", to:'_list/feed/viewByDate', query: { "descending": "true", "skip": "150" }},
+    */
     
     
     
