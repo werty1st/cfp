@@ -1,6 +1,9 @@
 
 module.exports.viewByCategory 	    = require('./viewByCategory').viewByCategory;
 module.exports.viewByTopic 	        = require('./viewByCategory').viewByTopic;
+module.exports.viewTopics 	        = require('./viewByCategory').viewTopics;
+module.exports.viewCategories       = require('./viewByCategory').viewCategories;
+module.exports.viewCatTopics 	    = require('./viewByCategory').viewCatTopics;
 //module.exports.viewByCategoryTopic 	= require('./viewByCategory').viewByCategoryTopic;
 
 module.exports.viewBySportTopic 	= require('./viewByCategory').viewBySportTopic;

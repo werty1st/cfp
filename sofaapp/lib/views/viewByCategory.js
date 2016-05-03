@@ -11,7 +11,36 @@ module.exports.viewByTopic = {
     map: function(doc) {
         emit([doc.topic, doc.dateTime], doc);       
     }
+    
 };
+
+module.exports.viewTopics = {
+    map: function(doc) {
+        emit( doc.topic,1);
+    },
+    reduce: function(keys, values, rereduce) {
+        return sum(values);
+    }
+};
+
+module.exports.viewCategories = {
+    map: function(doc) {
+        emit( doc.category,1);
+    },
+    reduce: function(keys, values, rereduce) {
+        return sum(values);
+    }
+};
+
+module.exports.viewCatTopics = {
+    map: function(doc) {
+        emit( [doc.category,doc.topic],1);
+    },
+    reduce: function(keys, values, rereduce) {
+        return sum(values);
+    }
+};
+
 
 // module.exports.viewByCategoryTopic = {
 //     map: function(doc) {

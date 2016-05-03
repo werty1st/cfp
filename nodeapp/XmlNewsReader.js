@@ -5,7 +5,7 @@
 var xpathStream = require('xpath-stream');
 var http  = require("http");
 
-var download_items = process.env.npm_package_config_download_items;
+var download_items = process.env.ITEMS;
 
 var urls = [{
                 url: `http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/${download_items}`,
@@ -60,6 +60,11 @@ class XmlNewsReader {
                      */
                     newsitem.category = category;
                     newsitem.version = process.env.npm_package_config_version_items;
+                    
+                    /**
+                     * Change ID because its used twice in Sport and Nachrichten
+                     */
+                    newsitem._id = newsitem._id + "-" + category;
                     
                     this.db.addItem(newsitem);               
                 }

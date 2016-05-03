@@ -5,7 +5,7 @@ module.exports.feed = function (head, req) {
 		self: "/newsflash/feed/current",   
 		completeFeed: true,
 		invalidDowntime: "PT30M",
-		description: "Die letzten 20 News",
+		description: "News der letzten 60h",
 		"http://zdf.de/rels/feed-items" : []
 	};     
 
@@ -42,8 +42,9 @@ module.exports.feed = function (head, req) {
 		*/
 		
 		
-		item.url = "newsflash/" + item._id;
+		item.url = "/newsflash/" + item._id;
 		item.timestamp = item.dateTime;
+		item.profile = "http://zdf.de/rels/content-feed-item";
 		
 		delete item._id;
 		delete item._rev;

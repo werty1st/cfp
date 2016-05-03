@@ -5,9 +5,16 @@ module.exports = [
     
     
     {from:"/feed", to:'_show/current/settings'},
-    {from:"/feed/current", to:'_list/feed/viewByDate', query: { "descending": "true", "limit": "20" }},
+    {from:"/feed/current", to:'_list/feed/viewByDate', query: { "descending": "true" }},
+    //{from:"/feed/current", to:'_list/feed/viewByDate', query: { "descending": "true", "limit": "20" }},
+
     
     {from:"/:id", to:'_show/item/:id'},
+    
+    
+    {from:"/feed/categories", to:'_view/viewCategories', query: { "group_level": "2"}},
+    {from:"/feed/topics", to:'_view/viewTopics', query: { "group_level": "2"}},
+    {from:"/feed/cattopics", to:'_view/viewCatTopics', query: { "group_level": "2"}},
     
     
     /**outdated  

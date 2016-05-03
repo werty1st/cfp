@@ -3,7 +3,7 @@ module.exports = function(doc, req) {
     var hostname = req.headers.Host;
 
     doc.profile = "http://zdf.de/rels/newsflash";
-    doc.self = "newsflash/" + doc._id;
+    doc.self = "/newsflash/" + doc._id;
     
     delete doc._id;
     delete doc._rev;

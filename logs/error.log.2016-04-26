@@ -1,2 +1,4 @@
 {"level":"error","message":"getXmlStream: Got invalid statusCode","timestamp":"2016-04-26T07:09:57.239Z"}
 {"level":"error","message":"getXmlStream: Got invalid statusCode","timestamp":"2016-04-26T07:09:57.242Z"}
+{"level":"error","message":"Error in response: from http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/100","timestamp":"2016-04-26T12:23:54.717Z"}
+{"level":"error","message":"Error in response: from http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/100","timestamp":"2016-04-26T12:23:54.723Z"}

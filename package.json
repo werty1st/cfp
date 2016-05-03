@@ -5,27 +5,33 @@
   "main": "./server/server.js",
   "config": {
     "version": {
-      "items": 3
+      "items": 4
     },
     "age": {
-      "keep" : "50",
-      "_comment": "keep latets 50 of all items"
+      "keep" : "60",
+      "_comment": "keep latets 48h of all items"
     },
     "download":{
-      "items": "100",
-      "_comment": "download 100 of each category"
+      "items": "10",
+      "_comment1": "download 10 of each category every minute",
+      "firstrun": "200",
+      "_comment2": "download 400 of each category at first run to fill DB"
     },
     "server": 3010,
     "logLevel": "debug",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
-    "debug": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} node ./nodeapp/server.js",
-    "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} nodemon --watch nodeapp/ ./nodeapp/server.js",
+    "debug": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} nodemon --watch nodeapp/ ./nodeapp/server.js",
     "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
     "push:watch": "watch 'npm run push' sofaapp/",
     "watch": "npm run push:watch & npm run debug:watch",
-    "build:s2": "cd sofaapp; kanso push ${npm_config_couchdb2}; cd ..;PORTS=-1 DB=${npm_config_couchdb2} node ./nodeapp/server.js"
+    "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..;PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "build:s2": "cd sofaapp; kanso push ${npm_config_couchdb2}; cd ..;PORTS=-1 DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "live": "PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "first-run": "PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
+    "first-run:s2": "PORTS=-1 DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,6 +1,8 @@
 (function () {
 "use strict";
 
+var moment = require("moment");
+
 var PouchDB = require('pouchdb');
     PouchDB.plugin(require('pouchdb-upsert'));
     //PouchDB.debug.enable('*');
@@ -63,6 +65,9 @@ class DbWorker {
         // count deleted items
         let ver_count=0;
         let old_count=0;
+        let outdated = process.env.npm_package_config_age_keep;
+        
+        console.log(moment().subtract(outdated, 'hours').format());
         
         /**
          * find docs with lower version 
@@ -82,35 +87,35 @@ class DbWorker {
                         _deleted: true
                     };
                 });
-        })
-        .then( (docs2delete) => {
-            
-            // console.log("version: docs2delete",docs2delete);
-            // return;
-            
-            // remove old versions elements
-            this.db.bulkDocs(docs2delete)
-                .then((result)=>{
-                    log.info(`Deleted ${ver_count} old versions.`);
-                })
-                .catch((err)=>{
-                    log.error("Error removing docs with old version.");
-                    throw new Error(err);    
-                });
-        })
-        .catch( (err) => {
-            console.log(err);
-            // some error
-        });         
+            })
+            .then( (docs2delete) => {
+                
+                // console.log("version: docs2delete",docs2delete);
+                // return;
+                
+                // remove old versions elements
+                this.db.bulkDocs(docs2delete)
+                    .then((result)=>{
+                        log.info(`Deleted ${ver_count} old versions.`);
+                    })
+                    .catch((err)=>{
+                        log.error("Error removing docs with old version.");
+                        throw new Error(err);    
+                    });
+            })
+            .catch( (err) => {
+                console.log(err);
+                // some error
+            });         
 
 
-
+        
         /** 
          * remove outdated docs 
          * */
         this.db.query('app/viewByDate',{
                 descending: true, //newest first
-                skip: process.env.npm_package_config_age_keep //remove all after the first x items                
+                startkey: moment().subtract(outdated, 'hours')                
             }).then( (res) => {
                 
                 old_count = res.rows.length;
@@ -123,38 +128,26 @@ class DbWorker {
                         _deleted: true
                     };
                 });
-        })
-        .then( (docs2delete) => {
-             
-            // console.log("outdated: docs2delete",docs2delete);
-            // return;
-                         
-            // remove outdated elements
-            this.db.bulkDocs(docs2delete)
-                .then((result)=>{
-                    log.info(`Deleted ${old_count} old items.`);
-                })
-                .catch((err)=>{
-                    log.error("Error removing outdated docs.");
-                    throw new Error(err);    
-                });
-        })
-        .catch( (err) => {
-            console.log(err);
-            // some error
-        });         
-
-        
-        // remove items with lower version number
-/*        this.db.allDocs( {include_docs: true} )
-            .then((result)=>{
-                
             })
-            .catch((err)=>{
-               log.error(err);
-               throw new Error(err); 
-            });*/
-        
+            .then( (docs2delete) => {
+                
+                // console.log("outdated: docs2delete",docs2delete);
+                // return;
+                            
+                // remove outdated elements
+                this.db.bulkDocs(docs2delete)
+                    .then((result)=>{
+                        log.info(`Deleted ${old_count} old items.`);
+                    })
+                    .catch((err)=>{
+                        log.error("Error removing outdated docs.");
+                        throw new Error(err);    
+                    });
+            })
+            .catch( (err) => {
+                console.log(err);
+                // some error
+            });
     }
 
 
@@ -167,19 +160,16 @@ class DbWorker {
     addItem(item){
         //send to db
         log.debug("upsert item",item._id);
-
-                
-     
                 
         this.db.upsert(
-            item._id,
-            this._diffDocs(item) //compare old and new doc, returns false or new doc
-        ).then( (response) => {
-            log.debug("success", item._id, response); 
-        }).catch((err) => {
-            log.error("error", err);
-            throw new Error (err);            
-        });
+                item._id,
+                this._diffDocs(item) //compare old and new doc, returns false or new doc
+            ).then( (response) => {
+                log.debug("success", item._id, response); 
+            }).catch((err) => {
+                log.error("error", err);
+                throw new Error (err);            
+            });
         
 }
 
