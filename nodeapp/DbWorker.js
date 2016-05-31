@@ -66,9 +66,7 @@ class DbWorker {
         let ver_count=0;
         let old_count=0;
         let outdated = process.env.npm_package_config_age_keep;
-        
-        console.log(moment().subtract(outdated, 'hours').format());
-        
+                
         /**
          * find docs with lower version 
          */
