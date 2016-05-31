@@ -46,7 +46,7 @@ class DbWorker {
                 // something changed, return new item
                 
                 // set current document version without trigger update
-                //newdoc.version = process.env.npm_package_config_version_items;
+                //newdoc.version = process.env.npm_package_config_version;
                
                 // console.log("XXXXXXXXXXXXXXXXXX");                
                 // console.log(diffResult);                
@@ -71,7 +71,7 @@ class DbWorker {
          * find docs with lower version 
          */
         this.db.query('app/viewByVersion',{
-                endkey: process.env.npm_package_config_version_items,
+                endkey: process.env.npm_package_config_version,
                 inclusive_end: "false"
             }).then( (res) => {
                 
@@ -88,7 +88,7 @@ class DbWorker {
             })
             .then( (docs2delete) => {
                 
-                console.log("version: docs2delete",docs2delete);
+                // console.log("version: docs2delete",docs2delete);
                 // return;
                 
                 // remove old versions elements
@@ -128,7 +128,7 @@ class DbWorker {
             })
             .then( (docs2delete) => {
                 
-                console.log("outdated: docs2delete",docs2delete);
+                // console.log("outdated: docs2delete",docs2delete);
                 // return;
                             
                 // remove outdated elements
