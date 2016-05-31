@@ -2,12 +2,12 @@
 "use strict";
 
 
-var xpathStream = require('xpath-stream');
-var http  = require("http");
+const xpathStream = require('xpath-stream');
+const http  = require("http");
+const moment = require("moment");
+const download_items = process.env.ITEMS;
 
-var download_items = process.env.ITEMS;
-
-var urls = [{
+const urls = [{
                 url: `http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/${download_items}`,
                 category: 'news'
             },
@@ -37,7 +37,7 @@ class XmlNewsReader {
         // get Sendungen
         stream
             .pipe(xpathStream("/newscenter/newsflash",{
-                externalId: "id/text()",
+                id: "id/text()",
                 _id: "id/text()",
                 topic: "subType/text()",
                 title: "title/text()",
@@ -59,6 +59,7 @@ class XmlNewsReader {
                      * Add category and version to docs
                      */
                     newsitem.category = category;
+                    newsitem.dateTime = moment(newsitem.dateTime).format();
                     newsitem.version = process.env.npm_package_config_version_items;
                     
                     /**
