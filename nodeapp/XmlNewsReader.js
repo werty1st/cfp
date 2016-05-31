@@ -129,7 +129,7 @@ class XmlNewsReader {
             this._downloadURL(url, (category) => {
                 
                 // call after category finished downloading
-                console.log(`done ${category}`);
+                log.info(`done ${category}`);
                 open -= 1;
                 if (open === 0){
                     // trigger removal of outdated docs

@@ -97,12 +97,11 @@ class DbWorker {
                         log.info(`Deleted ${ver_count} old versions.`);
                     })
                     .catch((err)=>{
-                        log.error("Error removing docs with old version.");
-                        throw new Error(err);    
+                        log.error("Error removing docs with old version.");    
                     });
             })
             .catch( (err) => {
-                console.log(err);
+                console.log("docs2delete",err);
                 // some error
             });         
 
@@ -138,12 +137,11 @@ class DbWorker {
                         log.info(`Deleted ${old_count} old items.`);
                     })
                     .catch((err)=>{
-                        log.error("Error removing outdated docs.");
-                        throw new Error(err);    
+                        log.error("Error removing outdated docs.");    
                     });
             })
             .catch( (err) => {
-                console.log(err);
+                log.error(docs2delete,err);
                 // some error
             });
     }
@@ -165,8 +163,7 @@ class DbWorker {
             ).then( (response) => {
                 log.debug("success", item._id, response); 
             }).catch((err) => {
-                log.error("error", err);
-                throw new Error (err);            
+                log.error("error", err);            
             });
         
 }
