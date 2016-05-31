@@ -60,7 +60,7 @@ class XmlNewsReader {
                      */
                     newsitem.category = category;
                     newsitem.dateTime = moment(newsitem.dateTime).format();
-                    newsitem.version = process.env.npm_package_config_version_items;
+                    newsitem.version = process.env.npm_package_config_version;
                     
                     /**
                      * Change ID because its used twice in Sport and Nachrichten

@@ -4,9 +4,7 @@
   "description": "",
   "main": "./server/server.js",
   "config": {
-    "version": {
-      "items": 4
-    },
+    "version": "5",
     "age": {
       "keep" : "60",
       "_comment": "keep latets 48h of all items"
@@ -25,6 +23,7 @@
     "debug": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
     "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} nodemon --watch nodeapp/ ./nodeapp/server.js",
     "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
+    "push:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..",
     "push:watch": "watch 'npm run push' sofaapp/",
     "watch": "npm run push:watch & npm run debug:watch",
     "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..;PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",

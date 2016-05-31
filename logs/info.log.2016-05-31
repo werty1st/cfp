@@ -1,0 +1,59 @@
+{"level":"info","message":"Start","timestamp":"2016-05-31T07:44:56.783Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T07:44:56.802Z"}
+{"level":"info","message":"server is listening on *:3010","timestamp":"2016-05-31T07:44:56.803Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T07:44:57.317Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T07:44:57.318Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T07:44:57.525Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T07:44:57.526Z"}
+{"level":"info","message":"Start","timestamp":"2016-05-31T07:48:34.256Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T07:48:34.296Z"}
+{"level":"info","message":"server is listening on *:3010","timestamp":"2016-05-31T07:48:34.297Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T07:48:34.602Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T07:48:34.602Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T07:48:34.827Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T07:48:34.827Z"}
+{"level":"info","message":"Deleted 0 old items.","timestamp":"2016-05-31T07:48:38.596Z"}
+{"level":"info","message":"Deleted 0 old versions.","timestamp":"2016-05-31T07:48:38.598Z"}
+{"level":"info","message":"Start","timestamp":"2016-05-31T07:52:28.467Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T07:52:28.498Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T07:52:28.793Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T07:52:28.793Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T07:52:29.019Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T07:52:29.019Z"}
+{"level":"info","message":"Deleted 0 old versions.","timestamp":"2016-05-31T07:52:29.633Z"}
+{"level":"info","message":"Deleted 232 old items.","timestamp":"2016-05-31T07:52:30.061Z"}
+{"level":"info","message":"Start","timestamp":"2016-05-31T11:33:59.003Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T11:33:59.031Z"}
+{"level":"info","message":"server is listening on *:3010","timestamp":"2016-05-31T11:33:59.032Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T11:33:59.321Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T11:33:59.323Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T11:33:59.553Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T11:33:59.553Z"}
+{"level":"info","message":"Deleted 0 old items.","timestamp":"2016-05-31T11:33:59.686Z"}
+{"level":"info","message":"Deleted 0 old versions.","timestamp":"2016-05-31T11:33:59.689Z"}
+{"level":"info","message":"Start","timestamp":"2016-05-31T11:54:05.860Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T11:54:05.881Z"}
+{"level":"info","message":"server is listening on *:3010","timestamp":"2016-05-31T11:54:05.883Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T11:54:06.202Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T11:54:06.203Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T11:54:06.412Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T11:54:06.412Z"}
+{"level":"info","message":"Deleted 0 old items.","timestamp":"2016-05-31T11:54:06.525Z"}
+{"level":"info","message":"Deleted 41 old versions.","timestamp":"2016-05-31T11:54:06.604Z"}
+{"level":"info","message":"Start","timestamp":"2016-05-31T11:54:32.035Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T11:54:32.062Z"}
+{"level":"info","message":"server is listening on *:3010","timestamp":"2016-05-31T11:54:32.063Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T11:54:32.412Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T11:54:32.416Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T11:54:32.578Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T11:54:32.578Z"}
+{"level":"info","message":"Deleted 0 old items.","timestamp":"2016-05-31T11:54:32.703Z"}
+{"level":"info","message":"Deleted 13 old versions.","timestamp":"2016-05-31T11:54:32.723Z"}
+{"level":"info","message":"Start","timestamp":"2016-05-31T12:07:01.869Z"}
+{"level":"info","message":"xmlReader loaded","timestamp":"2016-05-31T12:07:01.890Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T12:07:02.198Z"}
+{"level":"info","message":"category: news","timestamp":"2016-05-31T12:07:02.199Z"}
+{"level":"info","message":"xmlReader: 10 items","timestamp":"2016-05-31T12:07:02.414Z"}
+{"level":"info","message":"category: sport","timestamp":"2016-05-31T12:07:02.414Z"}
+{"level":"info","message":"Deleted 0 old items.","timestamp":"2016-05-31T12:07:02.532Z"}
+{"level":"info","message":"Deleted 20 old versions.","timestamp":"2016-05-31T12:07:02.564Z"}
