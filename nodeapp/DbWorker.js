@@ -101,7 +101,7 @@ class DbWorker {
                     });
             })
             .catch( (err) => {
-                console.log("docs2delete",err);
+                console.log("docs2delete1",err);
                 // some error
             });         
 
@@ -141,7 +141,7 @@ class DbWorker {
                     });
             })
             .catch( (err) => {
-                log.error(docs2delete,err);
+                log.error("docs2delete2",err);
                 // some error
             });
     }
