@@ -88,7 +88,7 @@ class DbWorker {
             })
             .then( (docs2delete) => {
                 
-                // console.log("version: docs2delete",docs2delete);
+                console.log("version: docs2delete",docs2delete);
                 // return;
                 
                 // remove old versions elements
@@ -101,7 +101,7 @@ class DbWorker {
                     });
             })
             .catch( (err) => {
-                console.log("docs2delete1",err);
+                log.error("docs2delete1",err);
                 // some error
             });         
 
@@ -114,7 +114,7 @@ class DbWorker {
                 descending: true, //newest first
                 startkey: moment().subtract(outdated, 'hours')                
             }).then( (res) => {
-                
+                                
                 old_count = res.rows.length;
 
                 //build array of docs to delete
@@ -128,7 +128,7 @@ class DbWorker {
             })
             .then( (docs2delete) => {
                 
-                // console.log("outdated: docs2delete",docs2delete);
+                console.log("outdated: docs2delete",docs2delete);
                 // return;
                             
                 // remove outdated elements
