@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/server.js",
   "config": {
-    "version": "5",
+    "version": "6",
     "age": {
       "keep" : "60",
       "_comment": "keep latets 48h of all items"
@@ -16,7 +16,7 @@
       "_comment2": "download 400 of each category at first run to fill DB"
     },
     "server": 3010,
-    "logLevel": "debug",
+    "logLevel": "info",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {

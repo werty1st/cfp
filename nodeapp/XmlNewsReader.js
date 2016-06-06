@@ -65,7 +65,7 @@ class XmlNewsReader {
                     /**
                      * Change ID because its used twice in Sport and Nachrichten
                      */
-                    newsitem._id = newsitem._id + "-" + category;
+                    newsitem._id = newsitem.id = newsitem._id + "-" + category;
                     
                     this.db.addItem(newsitem);               
                 }
