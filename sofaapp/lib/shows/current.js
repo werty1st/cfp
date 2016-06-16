@@ -17,11 +17,11 @@ module.exports = function(doc, req) {
     }
 
     provides('json', function(){
-        return toJSON(doc);
+        return {"code": 200, "body": toJSON(doc), "headers" : { "Content-Type": "application/json; charset=utf-8"} };
     });    
 
     provides('html', function(){
-        return '<pre>' + toJSON(doc) + '</pre>';
+        return {"code": 200, "body": '<pre>' + toJSON(doc) + '</pre>', "headers" : { "Content-Type": "application/json; charset=utf-8"} };
     });
        
 };
