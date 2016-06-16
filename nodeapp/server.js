@@ -22,22 +22,6 @@ global.log = new (winston.Logger)({
 
 log.info("Start");
 
-const PORT = process.env.PORTS;
-
-if (PORT > 0){
-    app.use(express.static(__dirname + '/html'));
-
-    io.on('connection', function(socket){
-      log.debug('client is talking to me');
-    });
-
-    http.listen(PORT, function(){
-      log.info(`server is listening on *:${PORT}`);
-    });    
-}
-
-
-
 
 // syncCouchdb
 //todo
