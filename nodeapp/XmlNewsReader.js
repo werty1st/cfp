@@ -66,7 +66,47 @@ class XmlNewsReader {
                      * Change ID because its used twice in Sport and Nachrichten
                      */
                     newsitem._id = newsitem.id = newsitem._id + "-" + category;
-                    
+
+
+                    /**
+                     * reorder assets
+                     */
+
+                    if (typeof newsitem.asset.type == "object"){
+                        // here we have an array with image and video id type: [ 'Image', 'VCMS' ]
+                        // find right position in array
+                        let tempasset = [];
+                        let size = newsitem.asset.type.length;
+
+                        for (let i=0;i<size;i++){
+                            let asset = { "type": newsitem.asset.type[i] , "reference": newsitem.asset.reference[i] };
+                            tempasset.push(asset);
+                        }
+                       newsitem.asset = tempasset;
+                    } else if (typeof newsitem.asset.type == "string"){
+                        // only one item
+                        newsitem.asset = [{ "type": newsitem.asset.type, "reference": newsitem.asset.reference }];
+                    } else {
+                        // no asset
+                        newsitem.asset = [];
+                    }
+
+
+
+                    /**
+                     * apply cutout on assest
+                     * asset maybe a string or an array of strings
+                     */
+
+                    newsitem.asset.map( (asset) =>{
+                        if ( asset.type.toLowerCase() === "image"){
+                            asset.cutout = [];
+                            asset.cutout.push({"388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${asset.reference}/61caa28e-e448-4723-96cd-f65b03dabeb4`});
+                        }
+                    });
+
+
+
                     this.db.addItem(newsitem);               
                 }
                 if (lastitem){

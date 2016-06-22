@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/server.js",
   "config": {
-    "version": "6",
+    "version": "8",
     "age": {
       "keep" : "60",
       "_comment": "keep latets 48h of all items"
@@ -15,22 +15,21 @@
       "firstrun": "200",
       "_comment2": "download 400 of each category at first run to fill DB"
     },
-    "server": 3010,
-    "logLevel": "error",
+    "logLevel": "debug",
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
-    "debug": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "debug:watch": "PORTS=${npm_package_config_server} DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} nodemon --watch nodeapp/ ./nodeapp/server.js",
+    "debug": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "debug:watch": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} nodemon --watch nodeapp/ ./nodeapp/server.js",
     "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
     "push:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..",
     "push:watch": "watch 'npm run push' sofaapp/",
     "watch": "npm run push:watch & npm run debug:watch",
-    "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..;PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "build:s2": "cd sofaapp; kanso push ${npm_config_couchdb2}; cd ..;PORTS=-1 DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "live": "PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "first-run": "PORTS=-1 DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
-    "first-run:s2": "PORTS=-1 DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js"
+    "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..; DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "build:s2": "cd sofaapp; kanso push ${npm_config_couchdb2}; cd ..; DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "live": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "first-run": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
+    "first-run:s2": "DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
