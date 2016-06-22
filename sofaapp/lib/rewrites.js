@@ -1,6 +1,13 @@
 module.exports = [
-    {from:"/api", to:'../../'},
-    {from:"/api/*", to:'../../*'},
+
+    {from:"/api", to:'attachments/index.html'},
+    {from:"/css/*", to:'attachments/css/*'},
+    {from:"/fonts/*", to:'attachments/fonts/*'},
+    {from:"/images/*", to:'attachments/images/*'},
+    {from:"/lang/*", to:'attachments/lang/*'},
+    {from:"/lib/*", to:'attachments/lib/*'},
+    
+    {from:"/api/swagger.json", to:'attachments/swagger.json'},
     
     
     

@@ -1,0 +1,168 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the Newsflash CFP Data server.",
+        "version": "4.0.2",
+        "title": "Swagger API Definition",
+        "termsOfService": "http://zdf.de/",
+        "contact": {
+            "name": "adams.r@zdf.de"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "sofa01.zdf.de",
+    "basePath": "/newsflash",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/feed": {
+            "get": {
+                "tags": [
+                    "feed-provider"
+                ],
+                "summary": "feed-provider",
+                "description": "Returns feed-provider Object",
+                "operationId": "feed-provider",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/feed-provider"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/current": {
+            "get": {
+                "tags": [
+                    "content-feed"
+                ],
+                "summary": "content-feed",
+                "description": "Returns content-feed Object",
+                "operationId": "content-feed",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/content-feed"
+                        }
+                    }
+                }
+            }
+        },
+        "/{news-id}": {
+            "get": {
+                "tags": [
+                    "news-item"
+                ],
+                "summary": "get news details",
+                "description": "Returns an News Item Object",
+                "operationId": "news-id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "news-id",
+                        "description": "ID of news that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/news-item"
+                        }
+                    },
+                    "404": {
+                        "description": "News-ID not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "feed-provider": {
+            "type": "object"
+        },
+        "content-feed": {
+            "type": "object",
+            "properties": {
+                "profile": {
+                    "type": "string"
+                },
+                "self": {
+                    "type": "string"
+                },
+                "completeFeed": {
+                    "type": "boolean"
+                },
+                "invalidDowntime": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "http://zdf.de/rels/feed-items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "news-item": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "dateTime": {
+                    "type": "date-time"
+                },
+                "asset": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "category": {
+                    "type": "string",
+                    "enum": [
+                            "news",
+                            "sport"
+                        ]
+                },
+                "profile": {
+                    "type": "string"
+                },
+                "self": {
+                    "type": "string"
+                }                                                                
+            }            
+        }
+    }
+}

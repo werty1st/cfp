@@ -4,6 +4,7 @@
     "description": "EPG XML Interface",
     "modules": ["lib"],
     "load": "lib/app",    
+    "attachments" : ["attachments"],
     "dependencies": {
         "modules": null,
         "properties": null,
