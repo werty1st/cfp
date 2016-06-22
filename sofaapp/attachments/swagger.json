@@ -141,7 +141,8 @@
                     "type": "string"
                 },
                 "dateTime": {
-                    "type": "date-time"
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "asset": {
                     "type": "array",
