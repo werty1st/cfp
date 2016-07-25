@@ -72,20 +72,68 @@ class XmlNewsReader {
                      * reorder assets
                      */
 
+                    console.log("newsitem.id",newsitem.id,newsitem.asset);
+
                     if (typeof newsitem.asset.type == "object"){
-                        // here we have an array with image and video id type: [ 'Image', 'VCMS' ]
+                        // array of image and/or video elementse: [ 'Image', 'VCMS', ... ]
                         // find right position in array
                         let tempasset = [];
                         let size = newsitem.asset.type.length;
 
                         for (let i=0;i<size;i++){
-                            let asset = { "type": newsitem.asset.type[i] , "reference": newsitem.asset.reference[i] };
-                            tempasset.push(asset);
+                            let asset = {};
+
+                            if (newsitem.asset.type[i] == "Image"){
+                                asset = {   "type": newsitem.asset.type[i] ,
+                                            "reference": newsitem.asset.reference[i],
+                                            "teaserImageRef": {
+                                                "reference": newsitem.asset.reference[i],
+                                                "title": "",
+                                                "altText": "",
+                                                "caption": "",
+                                                "profile": "http://zdf.de/rels/image",
+                                                "layouts": 
+                                                    {
+                                                    "388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${asset.reference}/61caa28e-e448-4723-96cd-f65b03dabeb4`
+                                                    }
+                                            }
+                                        };
+                                tempasset.push(asset);
+                            } else if (newsitem.asset.type[i] == "VCMS"){
+                                asset = {   "type": newsitem.asset.type[i],
+                                            "reference": newsitem.asset.reference[i],
+                                            "externalId": "",
+                                            "id": ""
+                                        };
+                                tempasset.push(asset);
+                            }                            
                         }
-                       newsitem.asset = tempasset;
+                        newsitem.asset = tempasset;
                     } else if (typeof newsitem.asset.type == "string"){
                         // only one item
-                        newsitem.asset = [{ "type": newsitem.asset.type, "reference": newsitem.asset.reference }];
+                            if (newsitem.asset.type == "Image"){
+                                newsitem.asset = [{  "type": newsitem.asset.type ,
+                                                    "reference": newsitem.asset.reference,
+                                                    "teaserImageRef": {
+                                                        "reference": newsitem.asset.reference,
+                                                        "title": "",
+                                                        "altText": "",
+                                                        "caption": "",
+                                                        "profile": "http://zdf.de/rels/image",
+                                                        "layouts": 
+                                                            {
+                                                            "388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${newsitem.asset.reference}/61caa28e-e448-4723-96cd-f65b03dabeb4`
+                                                            }
+                                                    }
+                                                 }];
+                            } else if (newsitem.asset.type == "VCMS"){
+                                newsitem.asset = [{  "type": newsitem.asset.type,
+                                                    "reference": newsitem.asset.reference,
+                                                    "externalId": "",
+                                                    "id": ""
+                                                 }];
+                            }                        
+                        //newsitem.asset = [{ "type": newsitem.asset.type, "reference": newsitem.asset.reference }];
                     } else {
                         // no asset
                         newsitem.asset = [];
@@ -98,12 +146,12 @@ class XmlNewsReader {
                      * asset maybe a string or an array of strings
                      */
 
-                    newsitem.asset.map( (asset) =>{
-                        if ( asset.type.toLowerCase() === "image"){
-                            asset.cutout = [];
-                            asset.cutout.push({"388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${asset.reference}/61caa28e-e448-4723-96cd-f65b03dabeb4`});
-                        }
-                    });
+                    // newsitem.asset.map( (asset) =>{
+                    //     if ( asset.type.toLowerCase() === "image"){
+                    //         asset.cutout = [];
+                    //         asset.cutout.push({"388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${asset.reference}/61caa28e-e448-4723-96cd-f65b03dabeb4`});
+                    //     }
+                    // });
 
 
 
