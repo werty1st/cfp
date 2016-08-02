@@ -6,10 +6,10 @@
   "config": {
     "version": "8",
     "age": {
-      "keep" : "60",
+      "keep": "60",
       "_comment": "keep latets 48h of all items"
     },
-    "download":{
+    "download": {
       "items": "30",
       "_comment1": "download 10 of each category every minute",
       "firstrun": "200",
@@ -37,6 +37,7 @@
     "couchapp": "^0.11.0",
     "deep-diff": "^0.3.3",
     "eslint": "^2.7.0",
+    "json-assert": "^1.0.2",
     "moment": "^2.11.0",
     "pouchdb": "^5.3.1",
     "pouchdb-upsert": "^2.0.0",

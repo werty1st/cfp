@@ -8,6 +8,7 @@ var PouchDB = require('pouchdb');
     //PouchDB.debug.enable('*');
     
 var diff = require('deep-diff').diff;    
+const ja = require('json-assert');
 
 
 class DbWorker {
@@ -36,10 +37,21 @@ class DbWorker {
         
         return function ( olddoc ){
             // diff doc                
-            let diffResult = diff(olddoc, newdoc); 
+            //let diffResult = diff(olddoc, newdoc); 
 
-            if ( (diffResult.length == 1) &&
-                    (diffResult[0].path[0] === "_rev")) {
+	    olddoc._rev = ja.optional;
+	    olddoc.asset = ja.optional;
+
+	    let res = ja.isEqual( olddoc, newdoc );
+
+	if (res==false) {
+	    console.log("js result:", res);
+	    console.log("js result:", olddoc);
+	    console.log("js result:", newdoc);
+	}
+            //return false;
+
+            if ( res==true ) {
                 // only diff is _rev property
                 return false;
             } else {
