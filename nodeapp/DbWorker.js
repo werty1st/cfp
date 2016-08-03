@@ -39,20 +39,13 @@ class DbWorker {
             // diff doc                
             //let diffResult = diff(olddoc, newdoc); 
 
-	    olddoc._rev = ja.optional;
-	    olddoc.asset = ja.optional;
+            olddoc._rev = ja.optional;
+            olddoc.asset = ja.optional;
 
-	    let res = ja.isEqual( olddoc, newdoc );
-
-	if (res==false) {
-	    console.log("js result:", res);
-	    console.log("js result:", olddoc);
-	    console.log("js result:", newdoc);
-	}
-            //return false;
+            let res = ja.isEqual( olddoc, newdoc, true /*silence*/ );
 
             if ( res==true ) {
-                // only diff is _rev property
+                // no update needed
                 return false;
             } else {
                 // something changed, return new item
@@ -167,7 +160,7 @@ class DbWorker {
      */
     addItem(item){
         //send to db
-        log.debug("upsert item",item._id);
+        //log.debug("upsert item",item._id);
                 
         this.db.upsert(
                 item._id,

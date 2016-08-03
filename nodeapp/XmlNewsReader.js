@@ -71,9 +71,6 @@ class XmlNewsReader {
                     /**
                      * reorder assets
                      */
-
-                    console.log("newsitem.id",newsitem.id,newsitem.asset);
-
                     if (typeof newsitem.asset.type == "object"){
                         // array of image and/or video elementse: [ 'Image', 'VCMS', ... ]
                         // find right position in array
