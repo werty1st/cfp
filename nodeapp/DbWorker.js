@@ -44,18 +44,11 @@ class DbWorker {
 
             let res = ja.isEqual( olddoc, newdoc, true /*silence*/ );
 
-            if ( res==true ) {
+            if ( res ) {
                 // no update needed
                 return false;
             } else {
-                // something changed, return new item
-                
-                // set current document version without trigger update
-                //newdoc.version = process.env.npm_package_config_version;
-               
-                // console.log("XXXXXXXXXXXXXXXXXX");                
-                // console.log(diffResult);                
-                // console.log("zzzzzzzzzzzzzzzzzz");                
+                // something changed, return new item              
                 return newdoc;
             }        
         };
