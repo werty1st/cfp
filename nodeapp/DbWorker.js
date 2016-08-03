@@ -1,13 +1,12 @@
 (function () {
 "use strict";
 
-var moment = require("moment");
+const moment = require("moment");
 
-var PouchDB = require('pouchdb');
+const PouchDB = require('pouchdb');
     PouchDB.plugin(require('pouchdb-upsert'));
     //PouchDB.debug.enable('*');
     
-var diff = require('deep-diff').diff;    
 const ja = require('json-assert');
 
 
@@ -36,8 +35,7 @@ class DbWorker {
     _diffDocs( newdoc ) {
         
         return function ( olddoc ){
-            // diff doc                
-            //let diffResult = diff(olddoc, newdoc); 
+            // diff doc
 
             olddoc._rev = ja.optional;
             olddoc.asset = ja.optional;

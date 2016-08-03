@@ -26,16 +26,13 @@
     "push:watch": "watch 'npm run push' sofaapp/",
     "watch": "npm run push:watch & npm run debug:watch",
     "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..; DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "build:s2": "cd sofaapp; kanso push ${npm_config_couchdb2}; cd ..; DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "live": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "build:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
     "first-run": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
-    "first-run:s2": "DB=${npm_config_couchdb2} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js"
+    "first-run:s1": "DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "couchapp": "^0.11.0",
-    "deep-diff": "^0.3.3",
     "eslint": "^2.7.0",
     "json-assert": "^1.0.2",
     "moment": "^2.11.0",
