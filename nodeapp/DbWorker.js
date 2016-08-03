@@ -38,7 +38,7 @@ class DbWorker {
             // diff doc
 
             olddoc._rev = ja.optional;
-            olddoc.asset = ja.optional;
+            //olddoc.asset = ja.optional;
 
             let res = ja.isEqual( olddoc, newdoc, true /*silence*/ );
 

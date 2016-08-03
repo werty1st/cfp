@@ -105,6 +105,19 @@ class XmlNewsReader {
                                 tempasset.push(asset);
                             }                            
                         }
+                        
+
+                        //sort by ref because its necessary
+                        tempasset = tempasset.sort( (a, b)=>{
+                            if (a.reference > b.reference){
+                                return 1;
+                            }
+                            if (a.reference < b.reference){
+                                return -1;
+                            }                            
+                            return 0;
+                        });
+
                         newsitem.asset = tempasset;
                     } else if (typeof newsitem.asset.type == "string"){
                         // only one item
