@@ -12,7 +12,7 @@ module.exports = [
     
     
     {from:"/feed", to:'_show/current/settings'},
-    {from:"/feed/current", to:'_list/feed/viewByDate', query: { "descending": "true" }},
+    {from:"/feed/current",    to:'_list/feed/viewByDate', query: { "descending": "true" }},
     //{from:"/feed/current", to:'_list/feed/viewByDate', query: { "descending": "true", "limit": "20" }},
 
     
@@ -20,8 +20,11 @@ module.exports = [
     
     
     {from:"/feed/categories", to:'_view/viewCategories', query: { "group_level": "2"}},
-    {from:"/feed/topics", to:'_view/viewTopics', query: { "group_level": "2"}},
-    {from:"/feed/cattopics", to:'_view/viewCatTopics', query: { "group_level": "2"}},
+    {from:"/feed/topics",     to:'_view/viewTopics',     query: { "group_level": "2"}},
+    {from:"/feed/cattopics",  to:'_view/viewCatTopics',  query: { "group_level": "2"}},
+    
+    {from:"/feed/filter/:cat",  to:'_view/viewByDateCatTopic',  query: { 'startkey': [":cat"], 'endkey': [ ":cat", {} ] }},
+    {from:"/feed/filter/:cat/:topic",  to:'_view/viewByDateCatTopic',  query: { 'startkey': [":cat", ":topic"], 'endkey': [ ":cat", ":topic", {} ] }},
     
     
     /**outdated  
