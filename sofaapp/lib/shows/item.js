@@ -10,6 +10,8 @@ module.exports = function(doc, req) {
     delete doc._revisions;
     delete doc.version;
 
+    /* FIX add empty text if none*/
+    if (!doc.text) doc.text = "";
 
     provides('json', function(){
         return {"code": 200, "body": toJSON(doc), "headers" : { "Content-Type": "application/json; charset=utf-8"} };

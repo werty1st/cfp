@@ -20,6 +20,7 @@
   },
   "scripts": {
     "debug": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
+    "debug:s1": "DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
     "debug:watch": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} nodemon --watch nodeapp/ ./nodeapp/server.js",
     "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
     "push:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..",

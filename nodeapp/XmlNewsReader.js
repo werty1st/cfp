@@ -67,6 +67,8 @@ class XmlNewsReader {
                      */
                     newsitem._id = newsitem.id = newsitem._id + "-" + category;
 
+                    /* FIX add empty text if none*/
+                    if (!newsitem.text) newsitem.text = "";
 
                     /**
                      * reorder assets
