@@ -28,8 +28,9 @@
     "watch": "npm run push:watch & npm run debug:watch",
     "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..; DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
     "build:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "first-run": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
-    "first-run:s1": "DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js"
+    "install": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
+    "install:s1": "DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
+    "live": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
