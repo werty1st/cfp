@@ -13,7 +13,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "sofa01.zdf.de",
+    "host": "sofa.zdf.de",
     "basePath": "/newsflash",
     "schemes": [
         "https"
