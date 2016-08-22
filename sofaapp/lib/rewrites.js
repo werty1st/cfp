@@ -19,12 +19,12 @@ module.exports = [
     {from:"/:id", to:'_show/item/:id'},
     
     
-    {from:"/feed/categories", to:'_view/viewCategories', query: { "group_level": "2"}},
-    {from:"/feed/topics",     to:'_view/viewTopics',     query: { "group_level": "2"}},
+    {from:"/feed/categories", to:'_list/categories/viewCategories', query: { "group_level": "2"}},
+    {from:"/feed/topics",     to:'_list/topics/viewCatTopics',     query: { "group_level": "2"}},
     {from:"/feed/cattopics",  to:'_view/viewCatTopics',  query: { "group_level": "2"}},
     
-    {from:"/feed/filter/:cat",  to:'_view/viewByDateCatTopic',  query: { 'startkey': [":cat"], 'endkey': [ ":cat", {} ] }},
-    {from:"/feed/filter/:cat/:topic",  to:'_view/viewByDateCatTopic',  query: { 'startkey': [":cat", ":topic"], 'endkey': [ ":cat", ":topic", {} ] }},
+    {from:"/feed/filter/:cat",  to:'_list/feed/viewByDateCatTopic',  query: { 'listname':'Feed filtered by', 'startkey': [":cat"], 'endkey': [ ":cat", {} ] }},
+    {from:"/feed/filter/:cat/:topic",  to:'_list/feed/viewByDateCatTopic',  query: { 'listname':'Feed filtered by', 'startkey': [":cat", ":topic" ], 'endkey': [ ":cat", ":topic", {} ] }},
     
     
     /**outdated  

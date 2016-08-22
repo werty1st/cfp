@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is the Newsflash CFP Data server.",
-        "version": "4.0.2",
+        "version": "4.1.2",
         "title": "Swagger API Definition",
         "termsOfService": "http://zdf.de/",
         "contact": {
@@ -13,7 +13,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "sofa01.zdf.de",
+    "host": "sofa.zdf.de",
     "basePath": "/newsflash",
     "schemes": [
         "https"
@@ -93,6 +93,132 @@
                     }
                 }
             }
+        },
+        "/feed/categories": {
+            "get": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "content-feed",
+                "description": "Returns available categories",
+                "operationId": "getCategories",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/content-feed"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/topics": {
+            "get": {
+                "tags": [
+                    "topic"
+                ],
+                "summary": "content-feed",
+                "description": "Returns available topics by category",
+                "operationId": "getTopics",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/content-feed"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/filter/{category}": {
+            "get": {
+                "tags": [
+                    "category",
+                    "filter"
+                ],
+                "summary": "get items by category",
+                "description": "Returns an News Item Id List",
+                "operationId": "byCategory",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "category",
+                        "description": "category of news that needs to be fetched. Nachrichten",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "news",
+                            "sport"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/news-item"
+                        }
+                    },
+                    "404": {
+                        "description": "News-ID not found"
+                    }
+                }
+            }
+        },
+        "/feed/filter/{category}/{topic}": {
+            "get": {
+                "tags": [
+                    "category",
+                    "topic",
+                    "filter"
+                ],
+                "summary": "get items by category and topic",
+                "description": "Returns an News Item Id List",
+                "operationId": "byCategoryTopic",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "category",
+                        "description": "category of news that needs to be fetched.",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "news",
+                            "sport"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "name": "topic",
+                        "description": "topic of news that needs to be fetched.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/news-item"
+                        }
+                    },
+                    "404": {
+                        "description": "News-ID not found"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -153,17 +279,17 @@
                 "category": {
                     "type": "string",
                     "enum": [
-                            "news",
-                            "sport"
-                        ]
+                        "news",
+                        "sport"
+                    ]
                 },
                 "profile": {
                     "type": "string"
                 },
                 "self": {
                     "type": "string"
-                }                                                                
-            }            
+                }
+            }
         }
     }
 }
