@@ -2,19 +2,19 @@ module.exports = function(doc, req) {
   
     var hostname = req.headers.Host;
 
-    if (doc === null){
-
-        doc = { 
-            self: "/newsflash/feed",   
-            profile: "http://zdf.de/rels/feed-provider",
-            description: "Der newsflash Service Feed",
-            current: "https://" + hostname+ "/newsflash/feed/current"
-        };        
-    } else {
-        doc.current = "https://" + hostname+ "/current";
-        delete doc._id;
-        delete doc._rev;
+    var path = req.info.db_name;
+    if (path.indexOf("_") > 0){
+        path = path.replace("_", "-");
     }
+
+    //there should not be a settings doc, otherwise ignore it
+    doc = { 
+        self: "/" + path + "/feed",   
+        profile: "http://zdf.de/rels/feed-provider",
+        description: "Der newsflash Service Feed",
+        current: "https://" + hostname+ "/" + path + "/feed/current"
+    };        
+ 
 
     provides('json', function(){
         return {"code": 200, "body": toJSON(doc), "headers" : { "Content-Type": "application/json; charset=utf-8"} };

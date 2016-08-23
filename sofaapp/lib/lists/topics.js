@@ -1,8 +1,13 @@
 module.exports = function (head, req) {
 
+    var path = req.info.db_name;
+    if (path.indexOf("_") > 0){
+        path = path.replace("_", "-");
+    }
+
 	var doc = { 
 		profile: "http://zdf.de/rels/content-feed",
-		self: "/newsflash/feed/current",   
+		self: "/" + path + "/feed/current",   
 		completeFeed: true,
 		invalidDowntime: "PT30M",
 		description: "list available topics by category",
@@ -20,7 +25,7 @@ module.exports = function (head, req) {
 	while( (row = getRow()) ){
 		var item = { "category" : row.key[0], "topic" : row.key[1], "count": row.value};
 		
-		item.url = "/newsflash/feed/filter/" + row.key[0] + "/" + row.key[1];
+		item.url = "/" + path + "/feed/filter/" + row.key[0] + "/" + row.key[1];
 		item.timestamp = new Date().toISOString();
 		item.profile = "http://zdf.de/rels/content-feed-item";
 						 

@@ -1,8 +1,13 @@
 module.exports.feed = function (head, req) {
 
+    var path = req.info.db_name;
+    if (path.indexOf("_") > 0){
+        path = path.replace("_", "-");
+    }
+
 	var doc = { 
 		profile: "http://zdf.de/rels/content-feed",
-		self: "/newsflash/feed/current",   
+		self: "/" + path + "/feed/current",   
 		completeFeed: true,
 		invalidDowntime: "PT30M",
 		description: "News der letzten 60h",
@@ -28,7 +33,7 @@ module.exports.feed = function (head, req) {
 	while( (row = getRow()) ){
 		var item = row.value;
 		
-		item.url = "/newsflash/" + item._id;
+		item.url = "/" + path + "/" + item._id;
 		item.timestamp = item.dateTime;
 		item.profile = "http://zdf.de/rels/content-feed-item";
 		
