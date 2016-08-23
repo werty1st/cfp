@@ -16,7 +16,7 @@ couchdb1_int = http://**@wmaiz-v-sofa01.dbc.zdf.de:5984/newsflash_int
 
 
 ;prod
-hostname = cm2-prod-program01.dbc.zdf.de
+hostname_prod = cm2-prod-program01.dbc.zdf.de
 
 ;int
-;hostname = wmaiz-isle04.dbc.zdf.de
+hostname_int = wmaiz-isle04.dbc.zdf.de

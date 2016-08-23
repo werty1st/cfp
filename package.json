@@ -21,18 +21,22 @@
   "scripts": {
     "watch": "npm run push:watch & npm run debug:watch",
 
-    "debug":       "DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
-    "debug:watch": "DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} nodemon --watch nodeapp/ ./nodeapp/server.js",
-    "debug:s1":    "DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "debug":       "DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "debug:watch": "DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} nodemon --watch nodeapp/ ./nodeapp/server.js",
+    "debug:s1":    "DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     
     "push":       "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
     "push:watch": "watch 'npm run push' sofaapp/",
     "push:s1":    "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..",
         
-    "deploy":    "cd sofaapp; kanso push ${npm_config_couchdb};  cd ..; DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
-    "deploy:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "deploy":    "cd sofaapp; kanso push ${npm_config_couchdb};  cd ..; DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "deploy:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     
-    "live": "DB=${npm_config_couchdb} HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js"
+    "deploy:int":    "cd sofaapp; kanso push ${npm_config_couchdb_int};  cd ..; DB=${npm_config_couchdb_int}  HOSTNAME=${npm_config_hostname_int} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "deploy:s1:int": "cd sofaapp; kanso push ${npm_config_couchdb1_int}; cd ..; DB=${npm_config_couchdb1_int} HOSTNAME=${npm_config_hostname_int} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    
+    "live": "DB=${npm_config_couchdb} HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
+    "live:int": "DB=${npm_config_couchdb} HOSTNAME=${npm_config_hostname_int} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
