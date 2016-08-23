@@ -9,7 +9,7 @@ var winston = require('winston');
 global.log = new (winston.Logger)({
     exitOnError: false,
     transports: [
-      new (winston.transports.Console)({colorize: true, level: process.env.npm_package_config_logLevel })
+      new (winston.transports.Console)({colorize: true, level: process.env.logLevel })
     ]
   });
 
