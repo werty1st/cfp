@@ -27,6 +27,7 @@ module.exports = [
     {from:"/feed/filter/:cat/:topic",  to:'_list/feed/viewByDateCatTopic',  query: { 'listname':'Feed filtered by', 'startkey': [":cat", ":topic" ], 'endkey': [ ":cat", ":topic", {} ] }},
     
     
+    /*{from:"/feed/changes/:cat",  to:'_changes',  query: { "filter": "app/news", "category" : ":cat" }},*/
 
 
     /**outdated  

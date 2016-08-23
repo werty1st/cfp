@@ -19,18 +19,20 @@
     "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
   },
   "scripts": {
-    "debug": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "debug:s1": "DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "debug:watch": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} nodemon --watch nodeapp/ ./nodeapp/server.js",
-    "push": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
-    "push:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..",
-    "push:watch": "watch 'npm run push' sofaapp/",
     "watch": "npm run push:watch & npm run debug:watch",
-    "build": "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..; DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "build:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js",
-    "install": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
-    "install:s1": "DB=${npm_config_couchdb1} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
-    "live": "DB=${npm_config_couchdb} ITEMS=${npm_package_config_download_items} node ./nodeapp/server.js"
+
+    "debug":       "DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "debug:watch": "DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} nodemon --watch nodeapp/ ./nodeapp/server.js",
+    "debug:s1":    "DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    
+    "push":       "cd sofaapp; kanso push ${npm_config_couchdb}; cd ..",
+    "push:watch": "watch 'npm run push' sofaapp/",
+    "push:s1":    "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..",
+        
+    "deploy":    "cd sofaapp; kanso push ${npm_config_couchdb};  cd ..; DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "deploy:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    
+    "live": "DB=${npm_config_couchdb} HOSTNAME=${npm_config_hostname} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",

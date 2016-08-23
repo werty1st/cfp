@@ -6,16 +6,16 @@ const xpathStream = require('xpath-stream');
 const http  = require("http");
 const moment = require("moment");
 const download_items = process.env.ITEMS;
+const hostname = process.env.HOSTNAME;
 
 const urls = [{
-                url: `http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/${download_items}`,
+                url: `http://${hostname}:8036/Newsflash/service/news/Nachrichten/${download_items}`,
                 category: 'news'
             },
             {
-                url: `http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/${download_items}`,
+                url: `http://${hostname}:8036/Newsflash/service/news/Sport/${download_items}`,
                 category: 'sport'
             }];
-
 
 class XmlNewsReader {
     
