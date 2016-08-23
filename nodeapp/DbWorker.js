@@ -133,7 +133,7 @@ class DbWorker {
                         log.info(`Deleted ${old_count} old items.`);
                     })
                     .catch((err)=>{
-                        log.error("Error removing outdated docs.");    
+                        log.error("Error removing outdated docs.",err);    
                     });
             })
             .catch( (err) => {
