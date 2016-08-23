@@ -34,7 +34,7 @@
     "deploy":    "cd sofaapp; kanso push ${npm_config_couchdb};  cd ..; DB=${npm_config_couchdb}  HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     "deploy:s1": "cd sofaapp; kanso push ${npm_config_couchdb1}; cd ..; DB=${npm_config_couchdb1} HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     
-    "deploy:int":    "cd sofaapp-int;     kanso push ${npm_config_couchdb_int};  cd ..; DB=${npm_config_couchdb_int}  HOSTNAME=${npm_config_hostname_int} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+    "deploy:int":    "cd sofaapp-int; kanso push ${npm_config_couchdb_int};  cd ..; DB=${npm_config_couchdb_int}  HOSTNAME=${npm_config_hostname_int} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     "deploy:s1:int": "cd sofaapp-int; kanso push ${npm_config_couchdb1_int}; cd ..; DB=${npm_config_couchdb1_int} HOSTNAME=${npm_config_hostname_int} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     
     "live":     "DB=${npm_config_couchdb}     HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
