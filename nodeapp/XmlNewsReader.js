@@ -8,6 +8,8 @@ const moment = require("moment");
 const download_items = process.env.ITEMS;
 const hostname = process.env.HOSTNAME;
 
+//TODO: skip importing outdated items
+
 const urls = [{
                 url: `http://${hostname}:8036/Newsflash/service/news/Nachrichten/${download_items}`,
                 category: 'news'
