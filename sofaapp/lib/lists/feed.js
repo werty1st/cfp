@@ -46,6 +46,7 @@ module.exports.feed = function (head, req) {
 		delete item.asset;
 		delete item.category;
 		delete item.dateTime;
+		delete item._deleted_conflicts;
 				 
 		doc["http://zdf.de/rels/feed-items"].push(item);
 	}

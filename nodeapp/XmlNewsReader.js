@@ -76,7 +76,7 @@ class XmlNewsReader {
                      * reorder assets
                      */
                     if (typeof newsitem.asset.type == "object"){
-                        // array of image and/or video elementse: [ 'Image', 'VCMS', ... ]
+                        // array of image and/or video elementse: [ 'Image', 'VCMS', 'MTR3' ... ]
                         // find right position in array
                         let tempasset = [];
                         let size = newsitem.asset.type.length;
@@ -146,7 +146,13 @@ class XmlNewsReader {
                                                     "externalId": "",
                                                     "id": ""
                                                  }];
-                            }                        
+                            } else if (newsitem.asset.type == "MTR3"){
+                                newsitem.asset = [{  "type": newsitem.asset.type,
+                                                    "reference": newsitem.asset.reference,
+                                                    "externalId": "",
+                                                    "id": ""
+                                                 }];								
+							}
                         //newsitem.asset = [{ "type": newsitem.asset.type, "reference": newsitem.asset.reference }];
                     } else {
                         // no asset
