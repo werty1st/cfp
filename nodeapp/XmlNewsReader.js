@@ -107,7 +107,14 @@ class XmlNewsReader {
                                             "id": ""
                                         };
                                 tempasset.push(asset);
-                            }                            
+                            } else if (newsitem.asset.type[i] == "MTR3"){
+                                asset = {   "type": newsitem.asset.type[i],
+                                            "reference": newsitem.asset.reference[i],
+                                            "externalId": "",
+                                            "id": ""
+                                        };
+                                tempasset.push(asset);
+                            }
                         }
                         
 
