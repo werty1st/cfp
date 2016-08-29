@@ -7,7 +7,7 @@
     "version": "8",
     "age": {
       "keep": "60",
-      "_comment": "keep latets 48h of all items"
+      "_comment": "keep latets X days of all items"
     },
     "download": {
       "items": "30",
@@ -25,8 +25,9 @@
     "debug:int":   "DB=${npm_config_couchdb_int} HOSTNAME=${npm_config_hostname_int}  ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     "debug:watch": "DB=${npm_config_couchdb}     HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} nodemon --watch nodeapp/ ./nodeapp/server.js",
     "debug:s1":    "DB=${npm_config_couchdb1}    HOSTNAME=${npm_config_hostname_prod} ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
+	"debug:s1:int":"DB=${npm_config_couchdb1_int} HOSTNAME=${npm_config_hostname_int}  ITEMS=${npm_package_config_download_items} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",    
     
-    "push":       "cd sofaapp;     kanso push ${npm_config_couchdb}; cd ..",
+	"push":       "cd sofaapp;     kanso push ${npm_config_couchdb}; cd ..",
     "push:int":   "cd sofaapp-int; kanso push ${npm_config_couchdb_int}; cd ..",
     "push:watch": "watch 'npm run push' sofaapp/",
     "push:s1":    "cd sofaapp;    kanso push ${npm_config_couchdb1}; cd ..",

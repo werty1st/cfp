@@ -108,7 +108,7 @@ class DbWorker {
          * */
         this.db.query('app/viewByDate',{
                 descending: true, //newest first
-                startkey: moment().subtract(outdated, 'hours')                
+                startkey: moment().subtract(outdated, 'days')                
             }).then( (res) => {
                                 
                 old_count = res.rows.length;
@@ -124,8 +124,8 @@ class DbWorker {
             })
             .then( (docs2delete) => {
                 
-                // console.log("outdated: docs2delete",docs2delete);
-                // return;
+                //console.log("outdated: docs2delete",docs2delete);
+                //return;
                             
                 // remove outdated elements
                 this.db.bulkDocs(docs2delete)
