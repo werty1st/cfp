@@ -95,7 +95,7 @@ class XmlNewsReader {
                                                 "profile": "http://zdf.de/rels/image",
                                                 "layouts": 
                                                     {
-                                                    "388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${newsitem.asset.reference[i]}/61caa28e-e448-4723-96cd-f65b03dabeb4`
+                                                    "388x218": `https://www.zdf.de/ZDF/zdfportal/cutout/${newsitem.asset.reference[i]}/61caa28e-e448-4723-96cd-f65b03dabeb4`
                                                     }
                                             }
                                         };
