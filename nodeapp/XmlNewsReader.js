@@ -63,6 +63,12 @@ class XmlNewsReader {
                     newsitem.category = category;
                     newsitem.dateTime = moment(newsitem.dateTime).format();
                     newsitem.version = process.env.npm_package_config_version;
+
+                    /**
+                     * add timestamp field
+                     */
+                    newsitem.timestamp = moment().format();
+                    
                     
                     /**
                      * Change ID because its used twice in Sport and Nachrichten

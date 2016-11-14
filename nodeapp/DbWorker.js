@@ -46,7 +46,9 @@ class DbWorker {
                 // no update needed
                 return false;
             } else {
-                // something changed, return new item              
+                // something changed, return new item
+                //change timestamp
+                newdoc.timestamp = moment().format();          
                 return newdoc;
             }        
         };

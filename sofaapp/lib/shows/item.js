@@ -13,6 +13,7 @@ module.exports = function(doc, req) {
     delete doc._rev;
     delete doc._revisions;
     delete doc.version;
+    //delete doc.timestamp;
 
     /* FIX add empty text if none*/
     if (!doc.text) doc.text = "";
