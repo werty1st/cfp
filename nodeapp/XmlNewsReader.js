@@ -66,11 +66,11 @@ class XmlNewsReader {
                     newsitem.version = process.env.npm_package_config_version;
 
                     /**
-                     * add timestamp field
-                     * no longer needed due to the new modificationTime field NOT of prod
-                     * is added if the old and new doc is different. not here
+                     * remove modificationTime if not set
                      */
-                    //newsitem.timestamp = moment().format();
+                    if (newsitem.modificationTime == undefined){
+                        delete newsitem.modificationTime;
+                    }
                     
                     
                     /**
