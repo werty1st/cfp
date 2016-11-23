@@ -67,7 +67,8 @@ class XmlNewsReader {
 
                     /**
                      * add timestamp field
-                     * no longer needed due to the new modificationTime field
+                     * no longer needed due to the new modificationTime field NOT of prod
+                     * is added if the old and new doc is different. not here
                      */
                     //newsitem.timestamp = moment().format();
                     
