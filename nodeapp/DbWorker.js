@@ -42,10 +42,10 @@ class DbWorker {
 
             let res = ja.isEqual( olddoc, newdoc, true /*silence*/ );
 
-            if (!res){
-                console.log("compare result\nolddoc\n",olddoc,"\nnewdoc\n", newdoc);
-                process.exit();
-            }
+            // if (!res){
+            //     console.log("compare result\nolddoc\n",olddoc,"\nnewdoc\n", newdoc);
+            //     process.exit();
+            // }
 
 
             if ( res ) {
