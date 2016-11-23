@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<newscenter xmlns="http://www.zdf.de/cmzwo-newsflash" usecaseId="1479835356183">
+  <newsflash>
+    <id>5689737</id>
+    <subType>Hintergrund</subType>
+    <title>Kerstins neue Meldung 2+</title>
+    <text>Und hier einfach noch eine 2. neue Meldung</text>
+    <dateTime>2016-11-16T12:13:02</dateTime>
+    <modificationTime>2016-11-16T12:13:15</modificationTime>
+  </newsflash>
+  <newsflash>
+    <id>5689735</id>
+    <subType>Hintergrund</subType>
+    <title>Kerstins neue Meldung 1</title>
+    <text>Neue Meldung 1 und neue Meldung 2 werden gleich gemeinsam publiziert, bin gespannt, was dann im Feed mit der bisherigen Meldung passiert</text>
+    <dateTime>2016-11-16T12:12:39</dateTime>
+    <modificationTime>2016-11-16T12:13:15</modificationTime>
+  </newsflash>
+  <newsflash>
+    <id>5689715</id>
+    <subType>Hintergrund</subType>
+    <title>Politik Meldung</title>
+    <text>Erst mal haben wir hier nur Text, später dann, soll es auch nochmal ein Video geben :-)</text>
+    <dateTime>2016-11-16T12:11:08</dateTime>
+    <modificationTime>2016-11-16T12:20:47</modificationTime>
+    <asset>
+      <type>Image</type>
+      <reference>801906d0-339c-4461-8434-e4e2dbf394b8</reference>
+    </asset>
+  </newsflash>
+  <newsflash>
+    <id>5689432</id>
+    <subType>Politik</subType>
+    <title>boa3 neuer Bildzuschnitt</title>
+    <text>Test mit neuem Bildzuschnitt</text>
+    <dateTime>2016-09-22T10:03:50</dateTime>
+    <modificationTime>2016-09-22T10:03:50</modificationTime>
+    <asset>
+      <type>Image</type>
+      <reference>c4fd924a-a044-484c-81ba-4a09bdb1e51a</reference>
+    </asset>
+  </newsflash>
+  <newsflash>
+    <id>5689215</id>
+    <subType>Politik</subType>
+    <title>Nachricht Autobombe</title>
+    <text>In Schritt zwei berichtigen wir die Nachricht auf Autobombe</text>
+    <dateTime>2016-09-15T15:18:24</dateTime>
+    <modificationTime>2016-09-15T15:25:34</modificationTime>
+  </newsflash>
+  <newsflash>
+    <id>5689182</id>
+    <subType>Panorama</subType>
+    <title>drehscheibe am 5. September 2016</title>
+    <text>drehscheibe am 5. September 2016 External ID am beitrag sowohl auf kaizen INT wie auch MIG vcms_beitrag_2828526</text>
+    <dateTime>2016-09-07T10:44:59</dateTime>
+    <modificationTime>2016-11-16T12:13:16</modificationTime>
+    <asset>
+      <type>MTR3</type>
+      <reference>SCMS_vcms_beitrag_2828526</reference>
+    </asset>
+  </newsflash>
+  <newsflash>
+    <id>5689155</id>
+    <subType>Politik</subType>
+    <title>Zusammenstöße zwischen Polizei und Regierungsgegnern in Sao Paulo</title>
+    <text>Bei Protesten gegen den neuen brasilianischen Präsident Temer ist es in Sao Paulo zu Zusammenstößen zwischen Demonstranten und der Polizei gekommen. Beamte hätten am Sonntag Tränengas eingesetzt, um nach einer zunächst friedlichen Kundgebung Vandalismus zu unterbinden, teilte die Polizei mit. Proteste gab es zuvor auch in Rio de Janeiro, wo Teilnehmer auf der Copacabana die Absetzung Temers und Neuwahlen forderten. Dessen Vorgängerin Rousseff war am Mittwoch des Amtes enthoben worden.</text>
+    <dateTime>2016-09-05T13:25:21</dateTime>
+    <modificationTime>2016-09-05T13:25:28</modificationTime>
+    <asset>
+      <type>MTR3</type>
+      <reference>SCMS_vcms_beitrag_2825864</reference>
+    </asset>
+    <asset>
+      <type>Image</type>
+      <reference>7111d6a9-f127-4006-9dd3-854ec8034d44</reference>
+    </asset>
+  </newsflash>
+  <newsflash>
+    <id>5689115</id>
+    <subType>Politik</subType>
+    <title>29.08. Ganze Sendung</title>
+    <text>Montags is es ja immer wieder schön auf der Arbeit Ganze Sendung: Wenn die Ketten brechen</text>
+    <dateTime>2016-08-29T11:59:14</dateTime>
+    <modificationTime>2016-08-29T11:59:46</modificationTime>
+    <asset>
+      <type>MTR3</type>
+      <reference>SCMS_b6e18046-2c07-442b-9113-9d932129e6cd</reference>
+    </asset>
+  </newsflash>
+  <newsflash>
+    <id>5688584</id>
+    <subType>Politik</subType>
+    <title>schamber in die politik</title>
+    <text>sicher sein, dass Sachen ankommen</text>
+    <dateTime>2016-08-23T15:51:50</dateTime>
+    <modificationTime>2016-08-23T15:51:50</modificationTime>
+    <asset>
+      <type>MTR3</type>
+      <reference>SCMS_vcms_beitrag_2461132</reference>
+    </asset>
+  </newsflash>
+  <newsflash>
+    <id>5688552</id>
+    <subType>Politik</subType>
+    <title>Türkei beschießt IS-Stellungen und Kurdenmiliz</title>
+    <text>Die türkische Armee hat laut Medienberichten erneut Stellungen der Terrormiliz Islamischer Staat (IS) in Syrien beschossen, nachdem die Extremisten von dort mit Mörsern die türkische Grenzstadt Karkamis unter Beschuss genommen hatten. Demnach feuerte die türkische Armee 60 Geschosse auf den syrischen Ort Dscharablos ab, die direkt gegenüber von Karkamis liegt. Die Armee feuerte zudem auf Positionen der kurdischen Volksverteidigungseinheiten (YPG) nahe der Stadt Manbidsch. Ankara betrachtet YPG und IS gleichermaßen als Terrorgruppen.</text>
+    <dateTime>2016-08-23T15:36:19</dateTime>
+    <modificationTime>2016-08-23T15:36:37</modificationTime>
+  </newsflash>
+</newscenter>

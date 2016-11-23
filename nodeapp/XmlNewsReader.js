@@ -11,11 +11,11 @@ const hostname = process.env.HOSTNAME;
 //TODO: skip importing outdated items
 
 const urls = [{
-                url: `http://${hostname}:8036/Newsflash/service/news/Nachrichten/${download_items}`,
+                url: `http://${hostname}/Newsflash/service/news/Nachrichten/${download_items}`,
                 category: 'news'
             },
             {
-                url: `http://${hostname}:8036/Newsflash/service/news/Sport/${download_items}`,
+                url: `http://${hostname}/Newsflash/service/news/Sport/${download_items}`,
                 category: 'sport'
             }];
 
@@ -45,6 +45,7 @@ class XmlNewsReader {
                 title: "title/text()",
                 text: "text/text()",
                 dateTime: "dateTime/text()",
+                modificationTime: "modificationTime/text()",
                 asset:{
                     type: "asset/type/text()",
                     reference  : "asset/reference/text()"
@@ -66,12 +67,13 @@ class XmlNewsReader {
 
                     /**
                      * add timestamp field
+                     * no longer needed due to the new modificationTime field
                      */
-                    newsitem.timestamp = moment().format();
+                    //newsitem.timestamp = moment().format();
                     
                     
                     /**
-                     * Change ID because its used twice in Sport and Nachrichten
+                     * Change ID because it's used twice in Sport and Nachrichten
                      */
                     newsitem._id = newsitem.id = newsitem._id + "-" + category;
 
@@ -79,7 +81,7 @@ class XmlNewsReader {
                     if (!newsitem.text) newsitem.text = "";
 
                     /**
-                     * reorder assets
+                     * reorder assets 
                      */
                     if (typeof newsitem.asset.type == "object"){
                         // array of image and/or video elementse: [ 'Image', 'VCMS', 'MTR3' ... ]
@@ -125,7 +127,7 @@ class XmlNewsReader {
                         }
                         
 
-                        //sort by ref because its necessary
+                        //sort by ref to make old and new version of the same news compareable
                         tempasset = tempasset.sort( (a, b)=>{
                             if (a.reference > b.reference){
                                 return 1;
@@ -173,24 +175,9 @@ class XmlNewsReader {
                         newsitem.asset = [];
                     }
 
-
-
-                    /**
-                     * apply cutout on assest
-                     * asset maybe a string or an array of strings
-                     */
-
-                    // newsitem.asset.map( (asset) =>{
-                    //     if ( asset.type.toLowerCase() === "image"){
-                    //         asset.cutout = [];
-                    //         asset.cutout.push({"388x218": `http://www.zdf.de/ZDF/zdfportal/cutout/${asset.reference}/61caa28e-e448-4723-96cd-f65b03dabeb4`});
-                    //     }
-                    // });
-
-
-
                     this.db.addItem(newsitem);               
                 }
+                
                 if (lastitem){
                     done(category);                    
                 } else {

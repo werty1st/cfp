@@ -34,7 +34,7 @@ module.exports.feed = function (head, req) {
 		var item = row.value;
 		
 		item.url = "/" + path + "/" + item._id;
-		item.timestamp = item.timestamp || item.dateTime;
+		item.timestamp = item.modificationTime || item.dateTime;
 		item.profile = "http://zdf.de/rels/content-feed-item";
 		
 		delete item._id;
@@ -46,6 +46,7 @@ module.exports.feed = function (head, req) {
 		delete item.asset;
 		delete item.category;
 		delete item.dateTime;
+		delete item.modificationTime;
 		delete item._deleted_conflicts;
 				 
 		doc["http://zdf.de/rels/feed-items"].push(item);

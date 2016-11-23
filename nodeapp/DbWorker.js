@@ -38,9 +38,15 @@ class DbWorker {
             // diff doc
 
             olddoc._rev = ja.optional;
-            olddoc.timestamp = ja.optional;
+            //olddoc.timestamp = ja.optional;
 
             let res = ja.isEqual( olddoc, newdoc, true /*silence*/ );
+
+            if (!res){
+                //console.log("compare result\nolddoc\n",olddoc,"\nnewdoc\n", newdoc);
+                //process.exit();
+            }
+
 
             if ( res ) {
                 // no update needed
@@ -48,7 +54,7 @@ class DbWorker {
             } else {
                 // something changed, return new item
                 //change timestamp
-                newdoc.timestamp = moment().format();          
+                //newdoc.timestamp = moment().format();          
                 return newdoc;
             }        
         };
@@ -136,6 +142,7 @@ class DbWorker {
                     })
                     .catch((err)=>{
                         log.error("Error removing outdated docs.");    
+                        //log.error(err);
                     });
             })
             .catch( (err) => {
@@ -154,12 +161,24 @@ class DbWorker {
     addItem(item){
         //send to db
         //log.debug("upsert item",item._id);
+
+        /**
+         * skip already outdated items (happens on int)
+         */
+        let outdated = process.env.npm_package_config_age_keep;
+        let itemdate = moment(item.dateTime);
+        let invalidbefore = moment().subtract(outdated, 'days');
+        if( itemdate.isBefore(invalidbefore) ){
+            log.warn("outdated skip",item._id);
+            return;
+        }
+
                 
         this.db.upsert(
                 item._id,
                 this._diffDocs(item) //compare old and new doc, returns false or new doc
             ).then( (response) => {
-                log.debug("success", item._id, response); 
+                log.debug("success", item._id, response);
             }).catch((err) => {
                 log.error("error", err);            
             });
