@@ -3,13 +3,13 @@
 
 module.exports.viewByCategory = {
     map: function(doc) {
-        emit([doc.category, doc.dateTime], doc);       
+        emit([doc.category, doc.modificationTime || doc.timestamp || doc.dateTime], doc);       
     }
 };
 
 module.exports.viewByTopic = {
     map: function(doc) {
-        emit([doc.topic, doc.dateTime], doc);       
+        emit([doc.topic, doc.modificationTime || doc.timestamp || doc.dateTime], doc);       
     }
     
 };
@@ -44,7 +44,7 @@ module.exports.viewCatTopics = {
 
 // module.exports.viewByCategoryTopic = {
 //     map: function(doc) {
-//         emit([doc.category, doc.topic, doc.dateTime], doc);       
+//         emit([doc.category, doc.topic, doc.modificationTime || doc.timestamp || doc.dateTime], doc);       
 //     }
 // };
 
@@ -52,7 +52,7 @@ module.exports.viewCatTopics = {
 module.exports.viewBySportTopic = {
     map: function(doc) {
         if (doc.category == "sport")
-            emit([doc.topic, doc.dateTime], doc);       
+            emit([doc.topic, doc.modificationTime || doc.timestamp || doc.dateTime], doc);       
     }
 };
 
@@ -60,7 +60,7 @@ module.exports.viewBySportTopic = {
 module.exports.viewByNewsTopic = {
     map: function(doc) {
         if (doc.category == "news")
-            emit([doc.topic, doc.dateTime], doc);       
+            emit([doc.topic, doc.modificationTime || doc.timestamp || doc.dateTime], doc);       
     }
 };
 
