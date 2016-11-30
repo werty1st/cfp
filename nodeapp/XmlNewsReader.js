@@ -70,6 +70,9 @@ class XmlNewsReader {
                      */
                     if (newsitem.modificationTime == undefined){
                         delete newsitem.modificationTime;
+                    } else {
+                        //fix missing timezone
+                        newsitem.modificationTime = moment(newsitem.modificationTime).format();
                     }
                     
                     
