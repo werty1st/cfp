@@ -10,7 +10,7 @@ module.exports.feed = function (head, req) {
 		self: "/" + path + "/feed/current",   
 		completeFeed: true,
 		invalidDowntime: "PT30M",
-		description: "News der letzten 60d",
+		description: "News der letzten 48h",
 		"http://zdf.de/rels/feed-items" : []
 	};     
 

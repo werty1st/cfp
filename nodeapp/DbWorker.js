@@ -69,7 +69,7 @@ class DbWorker {
         // count deleted items
         let ver_count=0;
         let old_count=0;
-        let outdated = process.env.npm_package_config_age_keep;
+        let outdated = process.env.KEEP;
                 
         /**
          * find docs with lower version 
