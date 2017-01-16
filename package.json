@@ -6,7 +6,7 @@
   "config": {
     "version": "8",
     "age": {
-      "keep": "2",
+      "keep": "10",
       "keepint": "60",
       "_comment": "keep latets X days of all items"
     },
