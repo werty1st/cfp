@@ -133,9 +133,9 @@ class DbWorker {
             })
             .then( (docs2delete) => {
                 
-                log.warn("outdated: docs2delete",docs2delete);
-                var mom1 = moment().subtract(outdated, 'days').format();
-                log.warn("startkey: moment().subtract(outdated, 'days') ", mom1);
+                // log.warn("outdated: docs2delete",docs2delete);
+                // var mom1 = moment().subtract(outdated, 'days').format();
+                // log.warn("startkey: moment().subtract(outdated, 'days') ", mom1);
                 //return;
                             
                 // remove outdated elements
