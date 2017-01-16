@@ -6,6 +6,14 @@ module.exports.viewByDate = {
     }
 };
 
+module.exports.viewByDateCreated = {
+    map: function(doc) {
+        // http://localhost:5984/newsflash/_design/app/_list/feed/viewByDate?descending=true 
+        // http://localhost:5984/newsflash/_design/app/_view/viewByDate?descending=false 
+        emit( doc.dateTime, doc );       
+    }
+};
+
 /*
 module.exports.viewByDate_News = {
     map: function(doc) {

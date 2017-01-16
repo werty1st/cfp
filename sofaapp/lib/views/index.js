@@ -14,6 +14,7 @@ module.exports.viewByVersion 	= require('./viewByVersion').viewByVersion;
 
 // remove outdated
 module.exports.viewByDate 	      = require('./viewByDate').viewByDate;
+module.exports.viewByDateCreated  = require('./viewByDate').viewByDateCreated;
 module.exports.viewByDateCatTopic = require('./viewByDateCatTopic');
 //module.exports.viewByDate_News 	= require('./viewByDate').viewByDate_News;
 //module.exports.viewByDate_Sport = require('./viewByDate').viewByDate_Sport;
