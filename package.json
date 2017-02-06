@@ -48,7 +48,9 @@
     "moment": "^2.11.0",
     "pouchdb": "^5.3.1",
     "pouchdb-upsert": "^2.0.0",
+    "process-nextick-args": "^1.0.7",
     "request": "^2.67.0",
+    "util-deprecate": "^1.0.2",
     "winston": "^2.2.0",
     "xpath-stream": "0.0.8"
   },
