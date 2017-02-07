@@ -1,186 +1,223 @@
-DB: [] 
-Memory: []
-Source: [A, B, C]
+# Newsflash CFP
 
-start:
-    sync items von db
-    
+The Newsflash Content Feed Provider is a service who provides Teletext Shortnews as a Content Feed to Sophora. It transforms XML to a JSON based REST Interface.
+These instructions don't include how to setup Ubuntu, CouchDB, Nginx or nodeJS.
 
-DB: [] 
-Memory: []
-Source: [A, B, C]
-    Memory: [A, B, C]
-        DB: [A, B, C]
+**Table of Contents**
 
-/////////////////////
-
-DB: [A, B, C] 
-Memory: []
-Source: [B, C, D]
-    DB->Memory: [A, B, C]
-    Source->Memory: [A, B, C, D]
-    Memory: [A(deleted), B, C, D]
-    DB: [A(deleted), B, C, D]
-    
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Adding toc to all files in a directory and sub directories](#adding-toc-to-all-files-in-a-directory-and-sub-directories)
+  - [Update existing doctoc TOCs effortlessly](#update-existing-doctoc-tocs-effortlessly)
+  - [Adding toc to individual files](#adding-toc-to-individual-files)
+    - [Examples](#examples)
+  - [Using doctoc to generate links compatible with other sites](#using-doctoc-to-generate-links-compatible-with-other-sites)
+    - [Example](#example)
+  - [Specifying location of toc](#specifying-location-of-toc)
+  - [Specifying a custom TOC title](#specifying-a-custom-toc-title)
+  - [Specifying a maximum heading level for TOC entries](#specifying-a-maximum-heading-level-for-toc-entries)
+  - [Printing to stdout](#printing-to-stdout)
+  - 
 
 
 
-start:
-    sync items von db
-    
+## Installation
+### Cloning the repository
+```shell
+svn co https://svn.zdf.de/repos/Webmaster/newsflash_cfp
+```
 
-DB: [A, B, C] 
-Memory: [A, B, C]
-Server: [B, C, D]
+### Install dependencies
+```shell
+npm install
+```
+### Setup default configuration
+Copy .npmrc_default to .npmrc:
+```shell
+cp .npmrc_default .npmrc
+```
+Define parameters:
+```ini
+couchdb     = http://localhost:5984/newsflash
+couchdb_int = http://localhost:5984/newsflash_int
 
+couchdb1 = http://admin:pass@wmaiz-v-sofa01.dbc.zdf.de:5984/newsflash
+couchdb1_int = http://admin:pass@wmaiz-v-sofa01.dbc.zdf.de:5984/newsflash_int
 
+;prod TTX Server
+hostname_prod = cm2-prod-program01.dbc.zdf.de:8036
 
+;int TTX Server
+hostname_int = wmaiz-isle04.dbc.zdf.de:8036
+```
 
+### Deployment
+Upload CouchApp to DB then get the latest 200 Items from TTX Server and process them.
+```shell
+npm run deploy:s1
+```
+```shell
+npm run deploy:s1:int
+```
+#### Limit revisions history
+```shell
+curl http://admin:pass@localhost:5984/newsflash/_revs_limit -X PUT -d 10
+curl http://admin:pass@localhost:5984/newsflash_int/_revs_limit -X PUT -d 10
+```
+### Cronjobs
+Install cronjob to update the CFP Database.
+```shell
+# every minute
+MAILTO=HRNeueMedienWebmaster2@zdf.de
+* * * * * sleep 1;  cd /opt/newsflash_cfp/; /usr/bin/npm run live >/dev/null
+* * * * * sleep 10; cd /opt/newsflash_cfp_int/; /usr/bin/npm run live:int >/dev/null
+```
 
-Download der XML Dateien
-Hash der Items
-wenn neu dann
-    prüfe auf änderung
-    wenn ja dann 
-        update
-    sonst
-        neu
-    modified!
-sonst
-    alte items behalten
-    veraltete items updaten auf deleted
-    
-    
-        
+### Nginx
 
+```nginx
+proxy_cache_path /var/lib/nginx/cache levels=1:2 keys_zone=cfp:1m max_size=1g inactive=180m;
 
-https://api.zdf.de/newsflash/feed
-
-// GET https://api.zdf.de/newsflash/feed
-{
-    "self": "/newsflash/feed",   
-    "profile": "http://zdf.de/rels/feed-provider"
-    "description": "Der newsflash Service Feed",
-    "interval": "1m",
-    "allowsComplete": true,
-    "current": "https://api.zdf.de/newsflash/feed/current",
-    "ttl": "1m"
+upstream sofa01db {
+    server 127.0.0.1:5984;
 }
+ 
+    #------------------------------------------------------------------------------#
+    ################################## newsflash ###################################
+    #------------------------------------------------------------------------------#
+ 
+        location = /newsflash/ {
+            return 301 http://$server_name/newsflash/feed;
+        }
+        
+        location ^~ /newsflash/ {
+ 
+        access_log /var/log/nginx/cfp_access.log;
+        expires 5m;
+        add_header Pragma public;
+        add_header "Edge-Control" "max-age=300";
+        add_header "Cache-Control" "max-age=300, public";
+ 
+        add_header "X-VServer-Name" "sofa01";
+     
+        add_header 'Access-Control-Allow-Origin' $cors_header;
+        #preflight request
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Max-Age' '1728000';
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' '0';
+            return 204;
+        }
+ 
+ 
+        #cache
+     
+        proxy_cache cfp;
+        proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+        proxy_cache_lock on;
+        proxy_cache_lock_timeout 5s;
+        proxy_cache_valid 200 302 5m;
+        proxy_cache_valid 404     1m;
+        add_header rt-Fastcgi-Cache $upstream_cache_status;
+ 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://sofa01db/newsflash/_design/app/_rewrite/;
+        }
+ 
+    #------------------------------------------------------------------------------#
+    ###############################int newsflash ###################################
+    #------------------------------------------------------------------------------#
+ 
+        location = /newsflash-int/ {
+            return 301 http://$server_name/newsflash-int/feed;
+        }
+        
+        location ^~ /newsflash-int/ {
+ 
+        access_log /var/log/nginx/cfp_int_access.log;
+        expires 5m;
+        add_header Pragma public;
+        add_header "Edge-Control" "max-age=300";
+        add_header "Cache-Control" "max-age=300, public";
+ 
+        add_header "X-VServer-Name" "sofa01";
+ 
+        add_header 'Access-Control-Allow-Origin' $cors_header;
+        #preflight request
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Max-Age' '1728000';
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' '0';
+            return 204;
+        }
+ 
+ 
+ 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://sofa01db/newsflash_int/_design/app/_rewrite/;
+        }
+```
 
+## Runtime
 
-// Das System KANN die Angabe eines "since" Parameters als GET URI-Parameter im Format eines Zeitstempels
-// (wie oben "2015-06-12T00:00:00") unterstützen und MUSS DANN die Menge der gelieferten Items auf den 
-// geforderten Zeitraum beschränken.
-// Auch HEAD Requests MÜSSEN unterstützt werden. Bei Abruf der "current" Collection erfährt der Konsument
-// über den "lastModified" Header den Zeitpunkt der letzten Aktualisierung und kann so entscheiden,
-// ob ein echter Abruf erforderlich ist.
+Prod URL: https://sofa01.zdf.de/newsflash/feed/current
 
-// GET https://api.zdf.de/newsflash/feed/current
+Int  URL: https://sofa01.zdf.de/newsflash-int/feed/current
+
+## Debugging
+
+From terminal run:
+```shell
+npm run debug
+```
+to view processing of PROD TTX Service data.
+
+Or
+```shell
+npm run debug:int
+```
+to view processing of INT TTX Service data.
+
+## Configuration
+The package.json contains some configuration parameters.
+```json
 {
-    "profile": "http://zdf.de/rels/feed"
-    "startDate" : "2015-06-12T00:00:00",
-    "endDate"   : "2015-06-12T00:00:59",
-    "self": "/newsflash/feed/current",
-    "prev-archive" : "/newsflash/feed/[id]",
-    "http://zdf.de/rels/feed-items": [
-        {
-            "profile": "http://zdf.de/rels/feed-item",
-            "id" : "129038209",
-            "timestamp" : "2015-06-12T00:00:13",
-            "typeOfChange" : "modified",
-            "url" : "/newsflash/broadcasts/129038209"
+    "name": "mtrCFP",
+    "config": {
+        "version": "8",
+        "age": {
+            "keep": "3",
+            "keepint": "60",
+            "_comment": "keep latets X days of all items"
         },
-        /* ... */
+        "download": {
+            "items": "10",
+            "_comment1": "download 10 of each category every minute",
+            "firstrun": "200",
+            "_comment2": "download 200 of each category at first run to fill DB"
+        },
+        "logLevel": "debug",
+        "useragent": "request (nodejs) - Newsflash/CFP (HRNM - Webmaster/TTP)"
     }
 }
+```
+Basic feature list:
 
+* **config.version** defines the version number of a new NewsFlash item. Items with a lower version number will be removed from the database.
 
-// GET https://api.zdf.de/newsflash/feed/[id]
-{ 
-    "profile": "http://zdf.de/rels/feed"
-    "startDate": "2015-06-11T23:59:00",
-    "endDate"  : "2015-06-11T23:59:59",
-    "self": "/newsflash/feed/[id]", /* Die aktuelle Seite des Feeds */
-    "next-archive": "/newsflash/feed/[id2]",    /* Die nächste Seite des Feeds */
-    "prev-archive": "/newsflash/feed/current",  /* Die vorherige Seite des Feeds */
-    "http://zdf.de/rels/feed-items": [
-        {
-            "profile": "http://zdf.de/rels/feed-item",
-            "id": "129038209",
-            "timestamp": "2015-06-11T23:59:33",
-            "typeOfChange": "modified",
-            "url": "/newsflash/broadcasts/129038209"
-        },
-        /* ... */
-    ]
-}
+* **config.age.keep** defines the maximum age of a NewsFlash item in days. Older items will be removed from the database.
 
-// Abruf der vollständige Objektmenge
-// GET https://api.zdf.de/newsflash/feed/current?complete=1
-{
-    "profile": "http://zdf.de/rels/full-feed"
-    "startDate" : "2012-03-11T00:00:00",
-    "self": "https://api.zdf.de/newsflash/feed/current?complete=1",
-    "http://zdf.de/rels/feed-items" : [
-        {
-            "profile": "http://zdf.de/rels/feed-item",
-            "id" : "modul1",
-            "timestamp" : "2015-06-12T00:00:13",
-            "http://zdf.de/rels/search-index-document": {
-                "profile": "http://zdf.de/rels/search-index-document",
-                "title" : "pur+ Schafe",
-                "title2" : "pur+",
-                "title3" : "Schafe",
-                /* ... */
-            }
-        },
-        /* ... */
-    ]
-}
+* **config.age.keepint** defines the maximum age of a NewsFlash item in days. Older items will be removed from the INT database.
 
+* **config.download.items** defines the amount of elements to query from the TTX Service.
 
-// Im JSON wird ein Datum/Zeitpunkt immer nach ISO 8601 formatiert.
-// 2015-05-23T22:00:00+02:00
-// "yyyy-MM-dd'T'HH:mm:ssXXX"
+* **config.download.firstrun** defines the amount of elements to query from the TTX Service, if the script was invoked with the deploy parameter. **npm run deploy:s1** or **npm run deploy:s1:int**
 
-######################################################
+* **config.logLevel** defines the verbosity level of debug information. Calling **npm run live** or **npm run live:int** ignore this parameter.
 
+* **config.useragent** defines the User Agent String of the HTTP request sent to the TTX Service.
 
-Meldungen der letzten 24 Stunden aus der Rubrik "Nachrichten"; es werden Unterrubriken zurückgeliefert: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/
-
-Meldungen der letzten 24 Stunden aus der Rubrik "Nachrichten"; es werden Unterrubriken zurückgeliefert: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Nachrichten/20
-
-Anhand der Unterrubriken können die Meldungen der letzten 24 Stunden wie folgt für "Politik" aufgerufen werden: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Nachrichten/Politik/
-
-Anhand der Unterrubriken können die Meldungen der letzten 24 Stunden wie folgt für "Politik" aufgerufen werden, Begrenzung auf 2 Elemente: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Nachrichten/Politik/
-
-Einzelne Meldung anzeigen: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsflash/700320
-
-Unterkategorien der Rubrik "Nachrichten": 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/subTypes/Nachrichten
- 
-Meldungen der letzten 24 Stunden aus der Rubrik "Sport"; es werden Rubriken zurückgeliefert: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport
-
-Die letzten 20 Meldungen aus der Rubrik "Sport"; es werden keine Rubriken zurückgeliefert:
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/news/Sport/20
-
-Meldungen der letzten 24 Stunden aus der Unterkategorie "Tennis" innerhalb der Kategorie "Sport":
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Sport/Tennis
-
-Die letzten 5 Meldungen aus der Unterkategorie "Tennis" innerhalb der Kategorie "Sport": 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsForCategory/Sport/Tennis/5
-
-Genau ein Meldung mit gegebener ID: 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/newsflash/388
-
-Unterkategorien der Rubrik "Sport": 
-http://cm2-prod-program01.dbc.zdf.de:8036/Newsflash/service/subTypes/Sport
-
-
-Doku: https://jira.zdf.de/jira/browse/KZN-334
