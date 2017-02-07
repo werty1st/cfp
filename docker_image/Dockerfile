@@ -24,7 +24,7 @@ COPY nodeapp nodeapp
 COPY sofaapp sofaapp
 COPY sofaapp-int sofaapp-int
 COPY package.json .
-COPY .npmrc_default .npmrc
+#COPY .npmrc_default .npmrc
 
 RUN npm install
 
