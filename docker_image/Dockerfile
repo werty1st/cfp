@@ -18,12 +18,7 @@ FROM node:7.5-alpine
 
 RUN mkdir -p /opt/newsflash
 WORKDIR /opt/newsflash
-COPY nodeapp .
-COPY sofaapp .
-COPY sofaapp-int .
-COPY xml-server .
-COPY package.json .
-COPY .npmrc_default .
-
+RUN rm -rf .vscode docker_image typings xml-server .jshintrc jsconfig.json tsd.json
 RUN npm install
+
 
