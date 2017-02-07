@@ -4,6 +4,7 @@ The Newsflash Content Feed Provider is a service who provides Teletext Shortnews
 These instructions don't include how to setup Ubuntu, CouchDB, Nginx or nodeJS.
 
 **Table of Contents**
+
 - [Newsflash CFP](#newsflash-cfp)
   - [Installation](#installation)
     - [Cloning the repository](#cloning-the-repository)
@@ -19,21 +20,29 @@ These instructions don't include how to setup Ubuntu, CouchDB, Nginx or nodeJS.
 
 
 ## Installation
+
 ### Cloning the repository
+
 ```shell
 svn co https://svn.zdf.de/repos/Webmaster/newsflash_cfp
 ```
 
 ### Install dependencies
+
 ```shell
 npm install
 ```
+
 ### Setup default configuration
+
 Copy .npmrc_default to .npmrc:
+
 ```shell
 cp .npmrc_default .npmrc
 ```
+
 Define parameters:
+
 ```ini
 couchdb     = http://localhost:5984/newsflash
 couchdb_int = http://localhost:5984/newsflash_int
@@ -49,20 +58,28 @@ hostname_int = wmaiz-isle04.dbc.zdf.de:8036
 ```
 
 ### Deployment
+
 Upload CouchApp to DB then get the latest 200 Items from TTX Server and process them.
+
 ```shell
 npm run deploy:s1
 ```
+
 ```shell
 npm run deploy:s1:int
 ```
+
 #### Limit revisions history
+
 ```shell
 curl http://admin:pass@localhost:5984/newsflash/_revs_limit -X PUT -d 10
 curl http://admin:pass@localhost:5984/newsflash_int/_revs_limit -X PUT -d 10
 ```
+
 ### Cronjobs
+
 Install cronjob to update the CFP Database.
+
 ```shell
 # every minute
 MAILTO=HRNeueMedienWebmaster2@zdf.de
@@ -78,25 +95,25 @@ proxy_cache_path /var/lib/nginx/cache levels=1:2 keys_zone=cfp:1m max_size=1g in
 upstream sofa01db {
     server 127.0.0.1:5984;
 }
- 
+
     #------------------------------------------------------------------------------#
     ################################## newsflash ###################################
     #------------------------------------------------------------------------------#
- 
+
         location = /newsflash/ {
             return 301 http://$server_name/newsflash/feed;
         }
-        
+
         location ^~ /newsflash/ {
- 
+
         access_log /var/log/nginx/cfp_access.log;
         expires 5m;
         add_header Pragma public;
         add_header "Edge-Control" "max-age=300";
         add_header "Cache-Control" "max-age=300, public";
- 
+
         add_header "X-VServer-Name" "sofa01";
-     
+
         add_header 'Access-Control-Allow-Origin' $cors_header;
         #preflight request
         if ($request_method = 'OPTIONS') {
@@ -105,10 +122,10 @@ upstream sofa01db {
             add_header 'Content-Length' '0';
             return 204;
         }
- 
- 
+
+
         #cache
-     
+
         proxy_cache cfp;
         proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
         proxy_cache_lock on;
@@ -116,31 +133,31 @@ upstream sofa01db {
         proxy_cache_valid 200 302 5m;
         proxy_cache_valid 404     1m;
         add_header rt-Fastcgi-Cache $upstream_cache_status;
- 
+
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://sofa01db/newsflash/_design/app/_rewrite/;
         }
- 
+
     #------------------------------------------------------------------------------#
     ###############################int newsflash ###################################
     #------------------------------------------------------------------------------#
- 
+
         location = /newsflash-int/ {
             return 301 http://$server_name/newsflash-int/feed;
         }
-        
+
         location ^~ /newsflash-int/ {
- 
+
         access_log /var/log/nginx/cfp_int_access.log;
         expires 5m;
         add_header Pragma public;
         add_header "Edge-Control" "max-age=300";
         add_header "Cache-Control" "max-age=300, public";
- 
+
         add_header "X-VServer-Name" "sofa01";
- 
+
         add_header 'Access-Control-Allow-Origin' $cors_header;
         #preflight request
         if ($request_method = 'OPTIONS') {
@@ -149,9 +166,9 @@ upstream sofa01db {
             add_header 'Content-Length' '0';
             return 204;
         }
- 
- 
- 
+
+
+
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -159,28 +176,34 @@ upstream sofa01db {
         }
 ```
 
-## Runtime
+## Runtime ##
 
-Prod URL: https://sofa01.zdf.de/newsflash/feed/current
+Prod URL: `https://sofa01.zdf.de/newsflash/feed/current`
 
-Int  URL: https://sofa01.zdf.de/newsflash-int/feed/current
+Int  URL: `https://sofa01.zdf.de/newsflash-int/feed/current`
 
 ## Debugging
 
 From terminal run:
+
 ```shell
 npm run debug
 ```
+
 to view processing of PROD TTX Service data.
 
 Or
+
 ```shell
 npm run debug:int
 ```
+
 to view processing of INT TTX Service data.
 
 ## Configuration
+
 The package.json contains some configuration parameters.
+
 ```json
 {
     "name": "mtrCFP",
@@ -202,19 +225,12 @@ The package.json contains some configuration parameters.
     }
 }
 ```
+
 Basic feature list:
-
 * **config.version** defines the version number of a new NewsFlash item. Items with a lower version number will be removed from the database.
-
 * **config.age.keep** defines the maximum age of a NewsFlash item in days. Older items will be removed from the database.
-
 * **config.age.keepint** defines the maximum age of a NewsFlash item in days. Older items will be removed from the INT database.
-
 * **config.download.items** defines the amount of elements to query from the TTX Service.
-
 * **config.download.firstrun** defines the amount of elements to query from the TTX Service, if the script was invoked with the deploy parameter. **npm run deploy:s1** or **npm run deploy:s1:int**
-
 * **config.logLevel** defines the verbosity level of debug information. Calling **npm run live** or **npm run live:int** ignore this parameter.
-
 * **config.useragent** defines the User Agent String of the HTTP request sent to the TTX Service.
-

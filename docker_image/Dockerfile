@@ -14,7 +14,16 @@
 # run
 # docker run -d --restart=always -p 5984:5984 --name olympia2016 couchdb/olympia2016 
 
-FROM klaemo/couchdb:1.6.1
+FROM node:7.5-alpine
 
-COPY db_files/ /usr/local/var/lib/couchdb
-RUN chown -R couchdb:couchdb /usr/local/var/lib/couchdb
+RUN mkdir -p /opt/newsflash
+WORKDIR /opt/newsflash
+COPY nodeapp .
+COPY sofaapp .
+COPY sofaapp-int .
+COPY xml-server .
+COPY package.json .
+COPY .npmrc_default .
+
+RUN npm install
+
