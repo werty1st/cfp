@@ -14,11 +14,20 @@
 # run
 # docker run -d --restart=always -p 5984:5984 --name olympia2016 couchdb/olympia2016 
 
+
+#docker build -t node_cfp https://github.com/werty1st/cfp.git
 FROM node:7.5-alpine
 
 RUN mkdir -p /opt/newsflash
 WORKDIR /opt/newsflash
-RUN rm -rf .vscode docker_image typings xml-server .jshintrc jsconfig.json tsd.json
+COPY nodeapp nodeapp
+COPY sofaapp sofaapp
+COPY sofaapp-int sofaapp-int
+COPY package.json .
+COPY .npmrc_default .npmrc
+
 RUN npm install
 
 
+#execute
+#docker run -it --rm -e DB="http://localhost:5984/newsflash" -e HOSTNAME="ttx1.zdi.de:80"  node_cfp "npm run debug""
