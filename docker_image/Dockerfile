@@ -26,8 +26,11 @@ COPY sofaapp-int sofaapp-int
 COPY package.json .
 #COPY .npmrc_default .npmrc
 
-RUN npm install
+RUN npm install kanso -g
+COPY node_modules node_modules
+#RUN npm install
 
 
 #execute
 #docker run -it --rm -e DB="http://localhost:5984/newsflash" -e HOSTNAME="ttx1.zdi.de:80"  node_cfp "npm run debug""
+#docker run -it --rm -e DB="http://localhost:5984/newsflash" -e HOSTNAME="cm2-prod-program01.dbc.zdf.de:8036" -e logLevel="debug" node_cfp npm run debug

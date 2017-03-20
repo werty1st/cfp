@@ -37,7 +37,11 @@
     "deploy:int": "cd sofaapp-int; kanso push ${npm_config_couchdb_int};  cd ..; DB=${npm_config_couchdb_int}  HOSTNAME=${npm_config_hostname_int}    KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     "deploy:s1:int": "cd sofaapp-int; kanso push ${npm_config_couchdb1_int}; cd ..; DB=${npm_config_couchdb1_int} HOSTNAME=${npm_config_hostname_int} KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     "live": "DB=${npm_config_couchdb}     HOSTNAME=${npm_config_hostname_prod}      KEEP=${npm_package_config_age_keep} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
-    "live:int": "DB=${npm_config_couchdb_int} HOSTNAME=${npm_config_hostname_int}   KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js"
+    "live:int": "DB=${npm_config_couchdb_int} HOSTNAME=${npm_config_hostname_int}   KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
+    
+    "docker:deploy": "cd sofaapp; kanso push $DB;  cd ..; KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
+    "docker:live":     "KEEP=${npm_package_config_age_keep}    ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
+    "docker:debug":    "KEEP=${npm_package_config_age_keep}    ITEMS=${npm_package_config_download_items}                node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
