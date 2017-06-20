@@ -1,5 +1,9 @@
 .kansorc
-config.php
+db_files
+
+couchdb_newsflash_docker_image.tar.gz
+
+
 *~
 *.lock
 *.DS_Store
@@ -11,8 +15,7 @@ node_modules
 
 !.gitignore
 
-.bottoken.json
-.bottoken.js
+
 .config.json
 .config.js
 

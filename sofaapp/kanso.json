@@ -1,7 +1,7 @@
 {
     "name": "app",
-    "version": "1.2.0",
-    "description": "EPG XML Interface",
+    "version": "1.2.1",
+    "description": "Newsflash Database",
     "modules": ["lib"],
     "load": "lib/app",    
     "attachments" : ["attachments"],

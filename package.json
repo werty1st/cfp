@@ -39,28 +39,23 @@
     "live": "DB=${npm_config_couchdb}     HOSTNAME=${npm_config_hostname_prod}      KEEP=${npm_package_config_age_keep} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
     "live:int": "DB=${npm_config_couchdb_int} HOSTNAME=${npm_config_hostname_int}   KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
     
-    "docker:deploy": "cd sofaapp; kanso push $DB;  cd ..; KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_firstrun} node ./nodeapp/server.js",
-    "docker:live":     "KEEP=${npm_package_config_age_keep}    ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
-    "docker:debug":    "KEEP=${npm_package_config_age_keep}    ITEMS=${npm_package_config_download_items}                node ./nodeapp/server.js"
+    "docker:live":"KEEP=${npm_package_config_age_keep} ITEMS=${npm_package_config_download_items} HOSTNAME=$TTX logLevel=error node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^2.7.0",
-    "express": "^4.14.0",
     "json-assert": "^1.0.2",
     "moment": "^2.11.0",
     "pouchdb": "^5.3.1",
     "pouchdb-upsert": "^2.0.0",
     "process-nextick-args": "^1.0.7",
-    "request": "^2.67.0",
-    "util-deprecate": "^1.0.2",
     "winston": "^2.2.0",
     "xpath-stream": "0.0.8"
   },
   "devDependencies": {
-    "async": "^1.5.2",
     "jshint": "^2.9.1-rc2",
-    "watch": "^0.17.1"
+    "watch": "^0.17.1",
+    "eslint": "^2.7.0",
+    "express": "^4.14.0"
   }
 }
