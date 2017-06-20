@@ -1,0 +1,13 @@
+!node_modules
+.dockerignore
+.gitignore
+.git
+sofaapp
+sofaapp-int
+typings
+xml-server
+.npmrc
+Dockerfile
+README.md
+jsconfig.json
+tsd.json
