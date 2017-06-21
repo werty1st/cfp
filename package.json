@@ -38,8 +38,7 @@
     "deploy:s1:int": "cd sofaapp-int; kanso push ${npm_config_couchdb1_int}; cd ..; DB=${npm_config_couchdb1_int} HOSTNAME=${npm_config_hostname_int} KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_firstrun} logLevel=${npm_package_config_logLevel} node ./nodeapp/server.js",
     "live": "DB=${npm_config_couchdb}     HOSTNAME=${npm_config_hostname_prod}      KEEP=${npm_package_config_age_keep} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
     "live:int": "DB=${npm_config_couchdb_int} HOSTNAME=${npm_config_hostname_int}   KEEP=${npm_package_config_age_keepint} ITEMS=${npm_package_config_download_items} logLevel=error node ./nodeapp/server.js",
-    
-    "docker:live":"KEEP=${npm_package_config_age_keep} ITEMS=${npm_package_config_download_items} HOSTNAME=$TTX logLevel=error node ./nodeapp/server.js"
+    "docker:live": "KEEP=${npm_package_config_age_keep} ITEMS=${npm_package_config_download_items} HOSTNAME=$TTX logLevel=error node ./nodeapp/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -50,6 +49,7 @@
     "pouchdb-upsert": "^2.0.0",
     "process-nextick-args": "^1.0.7",
     "winston": "^2.2.0",
+    "winston-mail": "^1.3.0",
     "xpath-stream": "0.0.8"
   },
   "devDependencies": {

@@ -101,11 +101,11 @@ class DbWorker {
                         log.info(`Deleted ${ver_count} old versions.`);
                     })
                     .catch((err)=>{
-                        log.error("Error removing docs with old version.");    
+                        log.warn("Removing docs with old version failed.");
                     });
             })
             .catch( (err) => {
-                log.error("docs2delete1",err);
+                log.warn("Collecting docs with older version failed",err);
                 // some error
             });         
 
@@ -144,12 +144,12 @@ class DbWorker {
                         log.info(`Deleted ${old_count} old items.`);
                     })
                     .catch((err)=>{
-                        log.error("Error removing outdated docs.");    
+                        log.warn("Removing outdated docs failed.");    
                         //log.error(err);
                     });
             })
             .catch( (err) => {
-                log.error("docs2delete2",err);
+                log.error("Collecting outdated docs failed",err);
                 // some error
             });
     }
@@ -172,7 +172,7 @@ class DbWorker {
         let itemdate = moment(item.dateTime);
         let invalidbefore = moment().subtract(outdated, 'days');
         if( itemdate.isBefore(invalidbefore) ){
-            log.warn("outdated skip",item._id);
+            log.info("Outdated skip",item._id);
             return;
         }
 
@@ -183,7 +183,8 @@ class DbWorker {
             ).then( (response) => {
                 log.debug("success", item._id, response);
             }).catch((err) => {
-                log.error("error", err);            
+                log.error("Updating or inserting Document failed.", err);
+                throw new Error (err);
             });
         
 }
