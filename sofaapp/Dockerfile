@@ -27,7 +27,7 @@ ADD db_files /usr/local/var/lib/couchdb
 # docker run -it --rm -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=fHWs29I8n5p -P --name newsflashdb couchdb/newsflash:1.0
 
 # run
-# docker run -d --restart=always -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=fHWs29I8n5p -P --name newsflashdb couchdb/newsflash:1.0
+# docker run -d --name newsflashdb --restart=always -P -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=fHWs29I8n5p -e VIRTUAL_HOST=wmaiz-v-sofa-prod-03.dbc.zdf.de -e VIRTUAL_PATH=newsflash -e VIRTUAL_PATH_TARGET=newsflash/_design/app/_rewrite couchdb/newsflash:1.0
 
 
 # portainer setup

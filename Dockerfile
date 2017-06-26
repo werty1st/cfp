@@ -40,7 +40,8 @@ ENTRYPOINT /usr/src/app/nodeapp/entrypoint.sh
 
 # portainer setup
 # missing link option so install from terminal
-# docker run -d --restart=always --link=newsflashdb --dns=172.23.88.40 -e DB="http://admin:$dbpw@newsflashdb:5984/newsflash" -e logLevel="error" -e TTX=cm2-prod-program01.dbc.zdf.de:8036 -e mailserver=mail.dbc.zdf.de -e mailport=25 -e receiver=adams.r@zdf.de --name=newsflash_app newsflash_app:1.2.0
+# docker run -d --name=newsflash_app --restart=always --link=newsflashdb --dns=172.23.88.40 -e DB="http://admin:$dbpw@newsflashdb:5984/newsflash" -e logLevel="error" -e TTX=cm2-prod-program01.dbc.zdf.de:8036 -e mailserver=mail.dbc.zdf.de -e mailport=25 -e receiver=adams.r@zdf.de newsflash_app:1.2.0
+
 # run image newsflash_app:1.2.0
 # link newsflashdb
 # restart=always
