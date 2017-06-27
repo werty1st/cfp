@@ -11,7 +11,7 @@ RUN npm install --production
 ENTRYPOINT /usr/src/app/nodeapp/entrypoint.sh
 
 # set PW to env for setup
-# dbpw=fHWs29I8n5p
+# dbpw=$COUCHPASS
 
 #build
 #docker build -t newsflash_app:1.2.0 .
@@ -41,6 +41,11 @@ ENTRYPOINT /usr/src/app/nodeapp/entrypoint.sh
 # portainer setup
 # missing link option so install from terminal
 # docker run -d --name=newsflash_app --restart=always --link=newsflashdb --dns=172.23.88.40 -e DB="http://admin:$dbpw@newsflashdb:5984/newsflash" -e logLevel="error" -e TTX=cm2-prod-program01.dbc.zdf.de:8036 -e mailserver=mail.dbc.zdf.de -e mailport=25 -e receiver=adams.r@zdf.de newsflash_app:1.2.0
+
+
+# portainer setup INT
+# missing link option so install from terminal
+# docker run -d --name=newsflash_int_app --restart=always --link=newsflashdb_int --dns=172.23.88.40 -e DB="http://admin:$dbpw@newsflashdb_int:5984/newsflash_int" -e logLevel="debug" -e TTX=wmaiz-isle04.dbc.zdf.de:8036 -e mailserver=mail.dbc.zdf.de -e mailport=25 -e receiver=adams.r@zdf.de newsflash_app:1.2.0
 
 # run image newsflash_app:1.2.0
 # link newsflashdb

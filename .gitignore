@@ -1,8 +1,7 @@
 .kansorc
 db_files
 
-couchdb_newsflash_docker_image.tar.gz
-newsflash_app.tar.gz
+*.tar.gz
 
 *~
 *.lock
