@@ -33,7 +33,7 @@ ADD db_files /usr/local/var/lib/couchdb
 # docker run -d --name newsflashdb_int --restart=always -P -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=$COUCHPASS -e VIRTUAL_HOST=wmaiz-v-sofa-prod-03.dbc.zdf.de -e VIRTUAL_PATH=newsflash-int -e VIRTUAL_PATH_TARGET=newsflash_int/_design/app/_rewrite couchdb/newsflash_int:1.0
 
 # run static port
-# docker run -d --name newsflashdb --restart=always -p 4007:5984 -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=$COUCHPASS couchdb/newsflash:1.0
+# docker run -d --name newsflashdb_int --restart=always -p 4007:5984 -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=$COUCHPASS couchdb/newsflash:1.0
 
 
 
