@@ -34,14 +34,14 @@ module.exports.feed = function (head, req) {
 		var item = row.value;
 		
 		item.url = "/" + path + "/" + item._id;
-		item.timestamp = item.modificationTime || item.timestamp || item.dateTime;
+		item.timestamp = item.timestamp || item.dateTime;
 		item.profile = "http://zdf.de/rels/content-feed-item";
 		
 		delete item._id;
 		delete item._rev;
 		delete item.version;
 		delete item.topic;
-		delete item.title;
+		//delete item.title;
 		delete item.text;
 		delete item.asset;
 		delete item.category;
