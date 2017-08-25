@@ -39,6 +39,7 @@ class DbWorker {
 
             olddoc._rev = ja.optional;
             olddoc.timestamp = ja.optional;
+            olddoc.modificationTime = ja.optional;
 
             let res = ja.isEqual( olddoc, newdoc, true /*silence*/ );
 
@@ -54,7 +55,8 @@ class DbWorker {
             } else {
                 // something changed, return new item
                 //change timestamp
-                newdoc.timestamp = moment().format();          
+                newdoc.modificationTime = moment().format();          
+                newdoc.timestamp        = moment().format();          
                 return newdoc;
             }        
         };

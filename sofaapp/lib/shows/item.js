@@ -1,3 +1,5 @@
+//http://localhost:5984/newsflash_int/_design/app/_show/item/9102635-news
+
 module.exports = function(doc, req) {
   
     var hostname = req.headers.Host;
@@ -14,19 +16,12 @@ module.exports = function(doc, req) {
     delete doc._revisions;
     delete doc.version;
     //delete doc.timestamp;
+    doc.timestamp = doc.modificationTime;
 
     /* FIX add empty text if none*/
     if (!doc.text) doc.text = "";
 
     return {"code": 200, "body": toJSON(doc), "headers" : { "Content-Type": "application/json; charset=utf-8"} };
     
-    // provides('json', function(){
-    // });    
-
-    // provides('html', function(){
-    //     return {"code": 200, "body": '<pre>' + toJSON(doc) + '</pre>', "headers" : { "Content-Type": "application/json; charset=utf-8"} };
-    // });
        
 };
-
-

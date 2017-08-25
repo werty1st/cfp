@@ -1,3 +1,5 @@
+//http://localhost:5984/newsflash_int/_design/app/_show/current
+
 module.exports = function(doc, req) {
   
     var hostname = req.headers.Host;
@@ -17,12 +19,6 @@ module.exports = function(doc, req) {
  
 
     return {"code": 200, "body": toJSON(doc), "headers" : { "Content-Type": "application/json; charset=utf-8"} };
-    // provides('json', function(){
-    // });    
-
-    // provides('html', function(){
-    //     return {"code": 200, "body": '<pre>' + toJSON(doc) + '</pre>', "headers" : { "Content-Type": "application/json; charset=utf-8"} };
-    // });
        
 };
 

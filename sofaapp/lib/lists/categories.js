@@ -1,3 +1,5 @@
+//http://localhost:5984/newsflash_int/_design/app/_list/categories/viewCategories?group_level=2
+
 module.exports = function (head, req) {
 
     var path = req.info.db_name;
